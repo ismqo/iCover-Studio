@@ -5,7 +5,7 @@ import { ArrowDownToLine, Check, ImagePlus, Music2, RotateCcw, X } from "lucide-
 import { CoverSettings, defaults, loadImage, releaseImage, renderCover } from "@/lib/render-cover";
 
 const corners = ["top-left", "top-right", "bottom-left", "bottom-right"] as const;
-const tintColors = ["#b8b0da", "#efa1ad", "#8bc8b3", "#e9bb75", "#8ebde7", "#ffffff"];
+const tintColors = ["#e8e8ed", "#efa1ad", "#8bc8b3", "#e9bb75", "#8ebde7", "#ffffff"];
 const rangeProgress = (value: number, min: number, max: number) => ({
   "--range-progress": `${((value - min) / (max - min)) * 100}%`,
 } as CSSProperties);
@@ -106,6 +106,16 @@ export default function Home() {
   function reset() {
     uploadId.current++; setUploading(false); setSettings(defaults); setPhoto(null); setPhotoName(""); setError(""); setStatus("Cover reset.");
   }
+
+  useEffect(() => {
+    if (document.documentElement.dataset.enter !== "editor") return;
+    const timer = window.setTimeout(() => {
+      delete document.documentElement.dataset.enter;
+      document.documentElement.style.background = "";
+      document.body.style.background = "";
+    }, 700);
+    return () => clearTimeout(timer);
+  }, []);
 
   return <div className="app-shell">
     <header className="app-header">
