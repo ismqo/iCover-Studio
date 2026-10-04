@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Pause, Play } from "lucide-react";
 import { APPLE_MUSIC_PATH } from "@/lib/apple-logo";
+import { NavMenu } from "@/components/nav-menu";
+import { useI18n } from "@/components/locale-provider";
 import styles from "./landing.module.css";
 
 const covers = [
@@ -87,6 +89,7 @@ function nearestCover(): Zoom {
 
 export default function Landing() {
   const router = useRouter();
+  const { t } = useI18n();
   const [paused, setPaused] = useState(false);
   const [phase, setPhase] = useState<"idle" | "fade" | "blank" | "zoom">("idle");
   const [zoom, setZoom] = useState<Zoom | null>(null);
@@ -112,8 +115,9 @@ export default function Landing() {
     const timer = window.setTimeout(() => {
       if (cancelled) return;
       document.documentElement.dataset.enter = "editor";
-      document.documentElement.style.background = "#f5f5f7";
-      document.body.style.background = "#f5f5f7";
+      const page = getComputedStyle(document.documentElement).getPropertyValue("--page").trim() || "#f5f5f7";
+      document.documentElement.style.background = page;
+      document.body.style.background = page;
       router.push("/editor");
     }, 980);
     return () => {
@@ -136,9 +140,9 @@ export default function Landing() {
 
   return <div className={`${styles.landing} ${departing ? styles.departing : ""} ${phase === "blank" || phase === "zoom" ? styles.blank : ""} ${phase === "zoom" ? styles.zooming : ""}`}>
     <header className={styles.navbar}>
-      <nav aria-label="Main navigation">
-        <Link href="/" className={styles.wordmark} aria-label="iCover home"><span className="brand-mark"><img src="/assets/brand/icover-icon.png" alt=""/></span>iCover<span className="studio-label">STUDIO</span></Link>
-        <div className={styles.navActions}><a href="https://github.com/ismqo/iCover-Studio" target="_blank" rel="noreferrer" className={styles.navCta}>GitHub</a></div>
+      <nav aria-label={t.nav.main}>
+        <Link href="/" className={styles.wordmark} aria-label={t.nav.home}><span className="brand-mark"><img src="/assets/brand/icover-icon.png" alt=""/></span>iCover<span className="studio-label">STUDIO</span></Link>
+        <div className={styles.navActions}><NavMenu /><a href="https://github.com/ismqo/iCover-Studio" target="_blank" rel="noreferrer" className={styles.navCta}>GitHub</a></div>
       </nav>
     </header>
 
@@ -148,11 +152,11 @@ export default function Landing() {
       <div className={styles.shade}/>
       <section className={styles.heroContent} aria-labelledby="hero-title">
         <div className={styles.heroBrand}><span className="brand-mark brand-mark-hero"><img src="/assets/brand/icover-icon.png" alt=""/></span>iCover Studio</div>
-        <h1 id="hero-title">For the love<br/>of your playlists.</h1>
-        <p>You found the perfect songs.<br className={styles.mobileBreak}/> Now give them the perfect cover.</p>
-        <a href="/editor" className={styles.heroCta} onClick={openEditor}>Create your cover</a>
+        <h1 id="hero-title">{t.landing.titleLead}<br/>{t.landing.titleRest}</h1>
+        <p>{t.landing.body}<br className={styles.mobileBreak}/> {t.landing.bodyRest}</p>
+        <a href="/editor" className={styles.heroCta} onClick={openEditor}>{t.landing.cta}</a>
       </section>
-      <div className={styles.bottomBar}><span>YOUR MUSIC. YOUR ARTWORK.</span><button className={styles.motionButton} onClick={() => setPaused(p => !p)} aria-label={paused ? "Play cover animation" : "Pause cover animation"} aria-pressed={paused}>{paused ? <Play size={16} fill="currentColor"/> : <Pause size={16} fill="currentColor"/>}</button></div>
+      <div className={styles.bottomBar}><span>{t.landing.caption}</span><button className={styles.motionButton} onClick={() => setPaused(p => !p)} aria-label={paused ? t.landing.play : t.landing.pause} aria-pressed={paused}>{paused ? <Play size={16} fill="currentColor"/> : <Pause size={16} fill="currentColor"/>}</button></div>
     </main>
     {zoom && <div className={`${styles.zoomCover} ${zoomOn ? styles.zoomCoverOn : ""}`} style={{ left: zoom.left, top: zoom.top, width: zoom.width, height: zoom.height, transform: zoomOn ? `translate(${zoom.dx}px, ${zoom.dy}px) rotate(0deg) scale(${zoom.scale})` : `translate(0px, 0px) rotate(${zoom.angle}deg) scale(1)` }}/>}
   </div>;
