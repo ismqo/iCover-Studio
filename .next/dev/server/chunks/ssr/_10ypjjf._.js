@@ -21,7 +21,6 @@ __turbopack_context__.v({
   "mobileBreak": "landing-module__jDH3nq__mobileBreak",
   "motionButton": "landing-module__jDH3nq__motionButton",
   "navActions": "landing-module__jDH3nq__navActions",
-  "navCta": "landing-module__jDH3nq__navCta",
   "navbar": "landing-module__jDH3nq__navbar",
   "paused": "landing-module__jDH3nq__paused",
   "rise": "landing-module__jDH3nq__rise",
@@ -420,25 +419,12 @@ function Landing() {
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$landing$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].navActions,
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$nav$2d$menu$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["NavMenu"], {}, void 0, false, {
-                                    fileName: "[project]/app/page.tsx",
-                                    lineNumber: 145,
-                                    columnNumber: 44
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
-                                    href: "https://github.com/ismqo/iCover-Studio",
-                                    target: "_blank",
-                                    rel: "noreferrer",
-                                    className: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$landing$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].navCta,
-                                    children: "GitHub"
-                                }, void 0, false, {
-                                    fileName: "[project]/app/page.tsx",
-                                    lineNumber: 145,
-                                    columnNumber: 55
-                                }, this)
-                            ]
-                        }, void 0, true, {
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$nav$2d$menu$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["NavMenu"], {}, void 0, false, {
+                                fileName: "[project]/app/page.tsx",
+                                lineNumber: 145,
+                                columnNumber: 44
+                            }, this)
+                        }, void 0, false, {
                             fileName: "[project]/app/page.tsx",
                             lineNumber: 145,
                             columnNumber: 9
@@ -783,6 +769,18 @@ function NavMenu() {
                     }, void 0, true, {
                         fileName: "[project]/components/nav-menu.tsx",
                         lineNumber: 59,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
+                        className: "nav-menu-link",
+                        href: "https://github.com/ismqo/iCover-Studio",
+                        target: "_blank",
+                        rel: "noreferrer",
+                        onClick: ()=>setOpen(false),
+                        children: "GitHub"
+                    }, void 0, false, {
+                        fileName: "[project]/components/nav-menu.tsx",
+                        lineNumber: 67,
                         columnNumber: 11
                     }, this)
                 ]

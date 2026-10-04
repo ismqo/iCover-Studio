@@ -142,7 +142,7 @@ export default function Landing() {
     <header className={styles.navbar}>
       <nav aria-label={t.nav.main}>
         <Link href="/" className={styles.wordmark} aria-label={t.nav.home}><span className="brand-mark"><img src="/assets/brand/icover-icon.png" alt=""/></span>iCover<span className="studio-label">STUDIO</span></Link>
-        <div className={styles.navActions}><NavMenu /><a href="https://github.com/ismqo/iCover-Studio" target="_blank" rel="noreferrer" className={styles.navCta}>GitHub</a></div>
+        <div className={styles.navActions}><NavMenu /></div>
       </nav>
     </header>
 
