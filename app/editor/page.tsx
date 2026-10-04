@@ -143,7 +143,7 @@ export default function Home() {
       link.click();
       window.setTimeout(() => URL.revokeObjectURL(url), 10000);
       setHandoff(current => current?.url === url ? null : current);
-    }, reduced ? 200 : 1400);
+    }, reduced ? 200 : 1320);
     return () => clearTimeout(done);
   }, [handoff?.leaving, handoff?.url, handoff?.filename]);
 
