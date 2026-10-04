@@ -16,13 +16,13 @@ export type CoverSettings = {
 };
 
 export const defaults: CoverSettings = {
-  mode: "classic", title: "Big Title", subtitle: "Sub Title", footer: "Footer",
+  mode: "classic", title: "Title", subtitle: "Subtitle", footer: "Description",
   classicAlign: "left", classicTitleY: 22, classicFontSize: 192, classicSubtitleFontSize: 160,
   classicTitleWeight: "bold", classicSubtitleWeight: "normal",
   essentialsTitle: "Essentials", showLogo: true, corner: "top-left",
   backgroundType: "gradients", gradient: 0, color: 0, customColor: "#7865a8",
-  textColor: "#ffffff", bandColor: "#c4c4c4", bandHeight: 31, essentialsFontSize: 148,
-  treatment: "mono", tint: "#e8e8ed", photoMargin: 0, photoTopMargin: false, photoRadius: 0,
+  textColor: "#ffffff", bandColor: "#c4c4c4", bandHeight: 31, essentialsFontSize: 136,
+  treatment: "original", tint: "#e8e8ed", photoMargin: 0, photoTopMargin: false, photoRadius: 0,
   zoom: 1, offsetX: 50, offsetY: 50,
 };
 

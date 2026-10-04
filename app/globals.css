@@ -153,9 +153,9 @@ body:has(.download-reveal){background:var(--page)}
 body:has(.download-reveal:not(.is-leaving)) .app-shell{filter:blur(40px)}
 .download-reveal{position:fixed;inset:0;z-index:30}
 .download-reveal:before{content:"";position:absolute;inset:0;background:rgba(6,6,8,.86);animation:revealFade .4s ease both}
-.download-reveal.is-leaving:before{animation:revealFade .55s ease .35s reverse forwards}
-.download-reveal.is-leaving .download-case{animation:coverBack .78s cubic-bezier(.55,0,.2,1) .52s both}
-.download-reveal.is-leaving .download-cd{animation:cdBack .7s cubic-bezier(.4,0,.2,1) both}
+.download-reveal.is-leaving:before{animation:revealFade .5s ease .42s reverse forwards}
+.download-reveal.is-leaving .download-case{animation:coverSend .74s cubic-bezier(.5,.02,.78,.18) .48s both}
+.download-reveal.is-leaving .download-cd{animation:cdBack .5s cubic-bezier(.4,0,.2,1) both}
 .download-reveal.is-leaving .download-caption{animation:captionOut .32s ease both}
 .download-anchor{position:absolute;z-index:1;left:50%;top:50%;width:var(--case-size);transform:translate(-50%,-50%)}
 .download-case{position:relative;width:100%;aspect-ratio:1;animation:coverToCenter .78s cubic-bezier(.22,1,.36,1) both}
@@ -165,7 +165,7 @@ body:has(.download-reveal:not(.is-leaving)) .app-shell{filter:blur(40px)}
 .download-caption{position:absolute;left:0;right:0;top:calc(100% + 28px);margin:0;text-align:center;color:#fff;font-size:26px;font-weight:500;letter-spacing:-.6px;animation:captionIn .4s ease 1.45s both}
 @keyframes revealFade{from{opacity:0}to{opacity:1}}
 @keyframes coverToCenter{from{transform:translate(var(--from-x),var(--from-y)) scale(var(--from-scale))}to{transform:none}}
-@keyframes coverBack{from{transform:none}to{transform:translate(var(--from-x),var(--from-y)) scale(var(--from-scale))}}
+@keyframes coverSend{0%{transform:none}16%{transform:translateY(14px) scale(.975)}100%{transform:translateY(calc(-64vh - 72%)) scale(.8)}}
 @keyframes cdPeek{0%{transform:translateX(-36%)}8%{transform:translateX(-30%)}16%{transform:translateX(-40%)}24%{transform:translateX(-33%)}32%{transform:translateX(-36%)}100%{transform:none}}
 @keyframes cdBack{0%{transform:none}62%{transform:translateX(-42%)}78%{transform:translateX(-32%)}90%{transform:translateX(-37%)}100%{transform:translateX(-36%)}}
 @keyframes captionIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}

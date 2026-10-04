@@ -105,7 +105,9 @@ __turbopack_context__.s([
     "dictionaries",
     ()=>dictionaries,
     "isLocale",
-    ()=>isLocale
+    ()=>isLocale,
+    "localizeCoverSamples",
+    ()=>localizeCoverSamples
 ]);
 const STORAGE_KEY = "icover-locale";
 const dictionaries = {
@@ -149,13 +151,17 @@ const dictionaries = {
             titleBand: "Title band",
             typography: "Typography",
             title: "Title",
-            bigTitle: "Big title",
-            bigTitleSize: "Big title size",
-            bigTitleWeight: "Big title weight",
+            bigTitle: "Title",
+            bigTitleSize: "Title size",
+            bigTitleWeight: "Title weight",
             subtitle: "Subtitle",
             subtitleSize: "Subtitle size",
             subtitleWeight: "Subtitle weight",
-            footer: "Footer",
+            sampleTitle: "Title",
+            sampleSubtitle: "Subtitle",
+            sampleEssentials: "Essentials",
+            footer: "Description",
+            sampleFooter: "Description",
             titleAlignment: "Title alignment",
             titlePosition: "Title group vertical position",
             normal: "Normal",
@@ -257,13 +263,17 @@ const dictionaries = {
             titleBand: "Banda de título",
             typography: "Tipografía",
             title: "Título",
-            bigTitle: "Título grande",
-            bigTitleSize: "Tamaño del título grande",
-            bigTitleWeight: "Peso del título grande",
+            bigTitle: "Título",
+            bigTitleSize: "Tamaño del título",
+            bigTitleWeight: "Peso del título",
             subtitle: "Subtítulo",
             subtitleSize: "Tamaño del subtítulo",
             subtitleWeight: "Peso del subtítulo",
-            footer: "Pie",
+            sampleTitle: "Título",
+            sampleSubtitle: "Subtítulo",
+            sampleEssentials: "Imprescindibles",
+            footer: "Descripción",
+            sampleFooter: "Descripción",
             titleAlignment: "Alineación del título",
             titlePosition: "Posición vertical del título",
             normal: "Normal",
@@ -337,6 +347,39 @@ function applyLocale(locale, persist = true) {
         localStorage.setItem(STORAGE_KEY, locale);
     } catch  {
     /* Private browsing can block storage; the choice still applies for this visit. */ }
+}
+function localizeCoverSamples(settings, locale) {
+    const samples = dictionaries[locale].editor;
+    const titles = new Set([
+        "Big Title",
+        "Title",
+        "Título",
+        "Titulo"
+    ]);
+    const subtitles = new Set([
+        "Sub Title",
+        "Subtitle",
+        "Subtítulo",
+        "Subtitulo"
+    ]);
+    const footers = new Set([
+        "Footer",
+        "Description",
+        "Descripción",
+        "Descripcion",
+        "Pie"
+    ]);
+    const essentials = new Set([
+        "Essentials",
+        "Imprescindibles"
+    ]);
+    return {
+        ...settings,
+        title: titles.has(settings.title) ? samples.sampleTitle : settings.title,
+        subtitle: subtitles.has(settings.subtitle) ? samples.sampleSubtitle : settings.subtitle,
+        footer: footers.has(settings.footer) ? samples.sampleFooter : settings.footer,
+        essentialsTitle: essentials.has(settings.essentialsTitle) ? samples.sampleEssentials : settings.essentialsTitle
+    };
 }
 function detectLocale() {
     try {
