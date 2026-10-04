@@ -20,6 +20,7 @@ export default function Home() {
   const [rendering, setRendering] = useState(true);
   const [uploading, setUploading] = useState(false);
   const [dragging, setDragging] = useState(false);
+  const [handoff, setHandoff] = useState<DownloadHandoff | null>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const fileInput = useRef<HTMLInputElement>(null);
   const uploadId = useRef(0);
@@ -94,14 +95,45 @@ export default function Home() {
       await renderCover(output, settings, photo);
       const blob = await new Promise<Blob>((resolve, reject) => output.toBlob(b => b ? resolve(b) : reject(new Error("Export failed. Please try again.")), "image/png"));
       const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = `icover-${essentials ? settings.essentialsTitle : settings.title}`.replace(/[^a-z0-9-]/gi, "-").slice(0, 100) + ".png";
-      link.click(); setTimeout(() => URL.revokeObjectURL(url), 10000);
-      setStatus("Your 1200 × 1200 PNG is ready.");
+      const filename = `icover-${essentials ? settings.essentialsTitle : settings.title}`.replace(/[^a-z0-9-]/gi, "-").slice(0, 100) + ".png";
+      const rect = canvas.current?.getBoundingClientRect();
+      const size = Math.min(window.innerWidth * 0.68, window.innerHeight * 0.52, 360);
+      const peekOffset = window.innerWidth <= 650 ? size * 0.12 : 0;
+      setHandoff({
+        url,
+        filename,
+        size,
+        x: rect ? rect.left + rect.width / 2 - window.innerWidth / 2 + peekOffset : peekOffset,
+        y: rect ? rect.top + rect.height / 2 - window.innerHeight / 2 : 0,
+        scale: rect && size ? rect.width / size : 1,
+        leaving: false,
+      });
     } catch (e) { setError((e as Error).message); }
     finally { setExporting(false); }
   }
+
+  useEffect(() => {
+    if (!handoff || handoff.leaving) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const hold = window.setTimeout(() => {
+      setHandoff(current => current && !current.leaving ? { ...current, leaving: true } : current);
+    }, reduced ? 900 : 3200);
+    return () => clearTimeout(hold);
+  }, [handoff]);
+
+  useEffect(() => {
+    if (!handoff?.leaving) return;
+    const { url, filename } = handoff;
+    const done = window.setTimeout(() => {
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename;
+      link.click();
+      window.setTimeout(() => URL.revokeObjectURL(url), 10000);
+      setHandoff(current => current?.url === url ? null : current);
+    }, 480);
+    return () => clearTimeout(done);
+  }, [handoff?.leaving, handoff?.url, handoff?.filename]);
 
   function reset() {
     uploadId.current++; setUploading(false); setSettings(defaults); setPhoto(null); setPhotoName(""); setError(""); setStatus("Cover reset.");
@@ -117,12 +149,13 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, []);
 
-  return <div className="app-shell">
+  return <>
+  <div className="app-shell">
     <header className="app-header">
       <nav className="editor-nav" aria-label="Main navigation">
       <a href="/" className="brand" aria-label="iCover home"><span className="brand-mark"><img src="/assets/brand/icover-icon.png" alt=""/></span>iCover<span className="studio-label">STUDIO</span></a>
       <span className="editor-nav-caption">YOUR MUSIC. YOUR ARTWORK.</span>
-      <button className="download mobile-download" onClick={download} disabled={exporting || rendering || uploading}><ArrowDownToLine size={16}/>{exporting ? "Exporting…" : "Download cover"}</button>
+      <button className="download mobile-download" onClick={download} disabled={exporting || rendering || uploading || !!handoff}><ArrowDownToLine size={16}/>{exporting ? "Exporting…" : "Download cover"}</button>
       </nav>
     </header>
 
@@ -131,7 +164,7 @@ export default function Home() {
         <section className="preview-panel" aria-label="Cover preview">
           <div className="section-top"><span><span className="live-dot"/> LIVE PREVIEW</span><button className="icon-button" onClick={reset} title="Reset cover" aria-label="Reset cover"><RotateCcw size={15}/></button></div>
           <div className="preview-stage"><canvas ref={canvas} width="1200" height="1200" aria-label={`${essentials ? settings.essentialsTitle : settings.title} cover preview`} role="img"/></div>
-          <div className="preview-download"><button className="download" onClick={download} disabled={exporting || rendering || uploading}><ArrowDownToLine size={16}/>{exporting ? "Exporting…" : "Download cover"}</button></div>
+          <div className="preview-download"><button className="download" onClick={download} disabled={exporting || rendering || uploading || !!handoff}><ArrowDownToLine size={16}/>{exporting ? "Exporting…" : "Download cover"}</button></div>
         </section>
 
         <section className="controls" aria-label="Cover settings" tabIndex={0}>
@@ -170,5 +203,17 @@ export default function Home() {
       </div>
       {(error || status) && <div className={`toast ${error ? "error" : ""}`} role={error ? "alert" : "status"}>{error || status}<button aria-label="Dismiss notification" onClick={() => { setError(""); setStatus(""); }}><X size={15}/></button></div>}
     </main>
-  </div>;
+  </div>
+  {handoff && <div className={`download-reveal${handoff.leaving ? " is-leaving" : ""}`} role="status" aria-live="polite">
+    <div className="download-anchor" style={{ "--case-size": `${handoff.size}px`, "--from-x": `${handoff.x}px`, "--from-y": `${handoff.y}px`, "--from-scale": handoff.scale } as CSSProperties}>
+      <div className="download-case">
+        <div className="download-cd" aria-hidden="true"/>
+        <img className="download-cover" src={handoff.url} alt=""/>
+      </div>
+      <p className="download-caption">There you go!</p>
+    </div>
+  </div>}
+  </>;
 }
+
+type DownloadHandoff = { url: string; filename: string; size: number; x: number; y: number; scale: number; leaving: boolean };
