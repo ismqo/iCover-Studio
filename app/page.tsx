@@ -145,6 +145,7 @@ export default function Landing() {
     <main className={`${styles.hero} ${paused ? styles.paused : ""}`}>
       <CoverWall/>
       <CoverWall empty/>
+      <div className={styles.shade}/>
       <section className={styles.heroContent} aria-labelledby="hero-title">
         <div className={styles.heroBrand}><span className="brand-mark brand-mark-hero"><img src="/assets/brand/icover-icon.png" alt=""/></span>iCover Studio</div>
         <h1 id="hero-title">For the love<br/>of your playlists.</h1>
