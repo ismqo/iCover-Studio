@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { ArrowUpRight, Github, Pause, Play } from "lucide-react";
+import { Pause, Play } from "lucide-react";
 import { APPLE_MUSIC_PATH } from "@/lib/apple-logo";
 import styles from "./landing.module.css";
 
@@ -138,19 +138,18 @@ export default function Landing() {
     <header className={styles.navbar}>
       <nav aria-label="Main navigation">
         <Link href="/" className={styles.wordmark} aria-label="iCover home"><span className="brand-mark"><img src="/assets/brand/icover-icon.png" alt=""/></span>iCover<span className="studio-label">STUDIO</span></Link>
-        <div className={styles.navActions}><a href="https://github.com/ismqo/iCover-Studio" target="_blank" rel="noreferrer" className={styles.navCta}><Github size={14}/>GitHub</a></div>
+        <div className={styles.navActions}><a href="https://github.com/ismqo/iCover-Studio" target="_blank" rel="noreferrer" className={styles.navCta}>GitHub</a></div>
       </nav>
     </header>
 
     <main className={`${styles.hero} ${paused ? styles.paused : ""}`}>
       <CoverWall/>
       <CoverWall empty/>
-      <div className={styles.shade}/>
       <section className={styles.heroContent} aria-labelledby="hero-title">
-        <div className={styles.heroBrand}><span className="brand-mark brand-mark-hero"><img src="/assets/brand/icover-icon.png" alt=""/></span>iCover</div>
+        <div className={styles.heroBrand}><span className="brand-mark brand-mark-hero"><img src="/assets/brand/icover-icon.png" alt=""/></span>iCover Studio</div>
         <h1 id="hero-title">For the love<br/>of your playlists.</h1>
         <p>You found the perfect songs.<br className={styles.mobileBreak}/> Now give them the perfect cover.</p>
-        <a href="/editor" className={styles.heroCta} onClick={openEditor}>Create your cover <ArrowUpRight size={19}/></a>
+        <a href="/editor" className={styles.heroCta} onClick={openEditor}>Create your cover</a>
       </section>
       <div className={styles.bottomBar}><span>YOUR MUSIC. YOUR ARTWORK.</span><button className={styles.motionButton} onClick={() => setPaused(p => !p)} aria-label={paused ? "Play cover animation" : "Pause cover animation"} aria-pressed={paused}>{paused ? <Play size={16} fill="currentColor"/> : <Pause size={16} fill="currentColor"/>}</button></div>
     </main>

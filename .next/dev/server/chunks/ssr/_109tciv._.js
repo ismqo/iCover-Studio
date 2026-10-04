@@ -12,7 +12,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 ;
 ;
 const metadata = {
-    title: "iCover — Cover Studio",
+    title: "iCover Studio",
     description: "Create your own gradient and Essentials-style playlist covers."
 };
 function RootLayout({ children }) {

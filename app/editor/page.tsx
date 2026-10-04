@@ -137,7 +137,7 @@ export default function Home() {
       link.click();
       window.setTimeout(() => URL.revokeObjectURL(url), 10000);
       setHandoff(current => current?.url === url ? null : current);
-    }, reduced ? 200 : 1160);
+    }, reduced ? 200 : 1400);
     return () => clearTimeout(done);
   }, [handoff?.leaving, handoff?.url, handoff?.filename]);
 
@@ -167,17 +167,20 @@ export default function Home() {
 
     <main>
       <div className="workspace">
+        <div className="preview-column">
         <section className="preview-panel" aria-label="Cover preview">
           <div className="section-top"><span><span className="live-dot"/> LIVE PREVIEW</span><button className="icon-button" onClick={reset} title="Reset cover" aria-label="Reset cover"><RotateCcw size={15}/></button></div>
           <div className="preview-stage"><canvas ref={canvas} width="1200" height="1200" aria-label={`${essentials ? settings.essentialsTitle : settings.title} cover preview`} role="img"/></div>
           <div className="preview-download"><button className="download" onClick={download} disabled={exporting || rendering || uploading || !!handoff}><ArrowDownToLine size={16}/>{exporting ? "Exporting…" : "Download cover"}</button></div>
         </section>
+        <p className="preview-credit">2026 iCover Studio.</p>
+        </div>
 
         <section className="controls" aria-label="Cover settings" tabIndex={0}>
           <div className="control-section first-section"><div className="section-heading"><h2>Cover style</h2></div>
             <div className="style-options">
-              <button className={`style-option ${!essentials ? "selected" : ""}`} aria-pressed={!essentials} onClick={() => setSettings(s => ({ ...s, mode: "classic", textColor: "#ffffff" }))}><span className="style-thumb classic-thumb">Aa</span><span><strong>Original</strong><small>Color & gradients</small></span>{!essentials && <Check size={15}/>}</button>
-              <button className={`style-option ${essentials ? "selected" : ""}`} aria-pressed={essentials} onClick={() => setSettings(s => ({ ...s, mode: "essentials", corner: "top-right", textColor: "#111111" }))}><span className="style-thumb essentials-thumb"><span>Essentials</span><Music2 size={19}/></span><span><strong>Essentials</strong><small>Photo & title band</small></span>{essentials && <Check size={15}/>}</button>
+              <button className={`style-option ${!essentials ? "selected" : ""}`} aria-pressed={!essentials} onClick={() => setSettings(s => ({ ...s, mode: "classic", textColor: "#ffffff" }))}><span className="style-thumb classic-thumb">Aa</span><span><strong>Original</strong><small>Color & gradients</small></span></button>
+              <button className={`style-option ${essentials ? "selected" : ""}`} aria-pressed={essentials} onClick={() => setSettings(s => ({ ...s, mode: "essentials", corner: "top-right", textColor: "#111111" }))}><span className="style-thumb essentials-thumb"><span>Essentials</span><Music2 size={19}/></span><span><strong>Essentials</strong><small>Photo & title band</small></span></button>
             </div>
           </div>
 

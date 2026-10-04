@@ -18,7 +18,6 @@
 .cover strong{position:absolute;top:29%;left:8%;right:7%;font-size:calc(var(--tile)*.155);line-height:.96;letter-spacing:-.04em;white-space:pre-line;font-weight:600;z-index:1}
 .cover small{position:absolute;left:8%;bottom:8%;right:8%;font-size:calc(var(--tile)*.029);letter-spacing:.12em;z-index:1}
 .centeredCover strong{text-align:center;top:34%;font-size:calc(var(--tile)*.18)}
-.shade{position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at center,rgba(8,5,14,.95) 0%,rgba(8,5,14,.87) 23%,rgba(8,5,14,.35) 61%,rgba(8,5,14,.15) 100%),linear-gradient(0deg,#09070e 0%,transparent 24%,transparent 82%,#09070e66)}
 .heroContent{text-align:center;padding:60px 24px 100px;max-width:980px;margin:0 auto}
 .heroBrand{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:9px;font-size:32px;line-height:1;letter-spacing:-1.5px;font-weight:600;margin-bottom:32px}
 .heroContent h1{font-size:clamp(60px,7.6vw,108px);line-height:.98;letter-spacing:-.02em;font-weight:600;margin:0;text-wrap:balance}
@@ -37,13 +36,13 @@
  .navbar{height:60px}.navbar nav{padding:0 20px}.wordmark{font-size:23px}.navActions>span{display:none}
  .hero{height:calc(100svh - 60px);min-height:660px}.heroContent{padding:45px 22px 90px}.heroBrand{font-size:27px;margin-bottom:28px}.heroBrand :global(.brand-mark-hero){width:120px;height:120px;flex-basis:120px}
  .heroContent h1{font-size:clamp(48px,12vw,72px);letter-spacing:-.01em}.heroContent p{font-size:18px;line-height:1.45;margin:25px 0 28px;white-space:normal}.mobileBreak{display:block}
- .heroCta{font-size:16px;padding:16px 26px}.wall{inset:-10% -125%;transform:rotate(-10deg)}.shade{background:radial-gradient(ellipse at center,#090610ed 12%,#090610c9 35%,#09061050 75%),linear-gradient(0deg,#09070e,transparent 25%)}
+ .heroCta{font-size:16px;padding:16px 26px}.wall{inset:-10% -125%;transform:rotate(-10deg)}
  .bottomBar{left:22px;right:22px;bottom:24px}.bottomBar>span{font-size:8px;letter-spacing:1.8px}
 }
 @media(prefers-reduced-motion:reduce){.column{animation:none;will-change:auto}.heroCta{transition:none}.motionButton{display:none}}
-.heroContent,.bottomBar,.shade,.wall{transition:opacity .5s ease}
+.heroContent,.bottomBar,.wall{transition:opacity .5s ease}
 .departing{overflow:hidden}
-.departing .heroContent,.departing .bottomBar,.departing .shade{opacity:0;pointer-events:none}
+.departing .heroContent,.departing .bottomBar{opacity:0;pointer-events:none}
 .emptyWall{opacity:0;z-index:-2}
 .blank .wall:not(.emptyWall){opacity:0}
 .blank .emptyWall{opacity:1}
