@@ -17,7 +17,9 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$nav$2d$menu$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/nav-menu.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$locale$2d$provider$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/locale-provider.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$render$2d$cover$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/render-cover.ts [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$i18n$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/i18n.ts [app-ssr] (ecmascript)");
 "use client";
+;
 ;
 ;
 ;
@@ -42,10 +44,15 @@ const rangeProgress = (value, min, max)=>({
         "--range-progress": `${(value - min) / (max - min) * 100}%`
     });
 function Home() {
-    const { t } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$locale$2d$provider$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useI18n"])();
+    const { t, locale } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$locale$2d$provider$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useI18n"])();
     const copy = t.editor;
     const notice = (key)=>copy.errors[key] ?? key;
     const [settings, setSettings] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$render$2d$cover$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["defaults"]);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        setSettings((current)=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$i18n$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["localizeCoverSamples"])(current, locale));
+    }, [
+        locale
+    ]);
     const [photo, setPhoto] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const [photoName, setPhotoName] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
@@ -231,7 +238,7 @@ function Home() {
             link.click();
             window.setTimeout(()=>URL.revokeObjectURL(url), 10000);
             setHandoff((current)=>current?.url === url ? null : current);
-        }, reduced ? 200 : 1400);
+        }, reduced ? 200 : 1320);
         return ()=>clearTimeout(done);
     }, [
         handoff?.leaving,
@@ -241,7 +248,7 @@ function Home() {
     function reset() {
         uploadId.current++;
         setUploading(false);
-        setSettings(__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$render$2d$cover$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["defaults"]);
+        setSettings((0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$i18n$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["localizeCoverSamples"])(__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$render$2d$cover$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["defaults"], locale));
         setPhoto(null);
         setPhotoName("");
         setError("");
@@ -279,12 +286,12 @@ function Home() {
                                                 alt: ""
                                             }, void 0, false, {
                                                 fileName: "[project]/app/editor/page.tsx",
-                                                lineNumber: 168,
+                                                lineNumber: 172,
                                                 columnNumber: 90
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/editor/page.tsx",
-                                            lineNumber: 168,
+                                            lineNumber: 172,
                                             columnNumber: 61
                                         }, this),
                                         "iCover",
@@ -293,13 +300,13 @@ function Home() {
                                             children: "STUDIO"
                                         }, void 0, false, {
                                             fileName: "[project]/app/editor/page.tsx",
-                                            lineNumber: 168,
+                                            lineNumber: 172,
                                             columnNumber: 152
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/editor/page.tsx",
-                                    lineNumber: 168,
+                                    lineNumber: 172,
                                     columnNumber: 7
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -310,12 +317,12 @@ function Home() {
                                             children: copy.caption
                                         }, void 0, false, {
                                             fileName: "[project]/app/editor/page.tsx",
-                                            lineNumber: 170,
+                                            lineNumber: 174,
                                             columnNumber: 9
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$nav$2d$menu$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["NavMenu"], {}, void 0, false, {
                                             fileName: "[project]/app/editor/page.tsx",
-                                            lineNumber: 171,
+                                            lineNumber: 175,
                                             columnNumber: 9
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -327,31 +334,31 @@ function Home() {
                                                     size: 16
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/editor/page.tsx",
-                                                    lineNumber: 172,
+                                                    lineNumber: 176,
                                                     columnNumber: 133
                                                 }, this),
                                                 exporting ? copy.exporting : copy.download
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/editor/page.tsx",
-                                            lineNumber: 172,
+                                            lineNumber: 176,
                                             columnNumber: 9
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/editor/page.tsx",
-                                    lineNumber: 169,
+                                    lineNumber: 173,
                                     columnNumber: 7
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/editor/page.tsx",
-                            lineNumber: 167,
+                            lineNumber: 171,
                             columnNumber: 7
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/editor/page.tsx",
-                        lineNumber: 166,
+                        lineNumber: 170,
                         columnNumber: 5
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -375,7 +382,7 @@ function Home() {
                                                                         className: "live-dot"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 181,
+                                                                        lineNumber: 185,
                                                                         columnNumber: 46
                                                                     }, this),
                                                                     " ",
@@ -383,7 +390,7 @@ function Home() {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 181,
+                                                                lineNumber: 185,
                                                                 columnNumber: 40
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -395,18 +402,18 @@ function Home() {
                                                                     size: 15
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/editor/page.tsx",
-                                                                    lineNumber: 181,
+                                                                    lineNumber: 185,
                                                                     columnNumber: 201
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 181,
+                                                                lineNumber: 185,
                                                                 columnNumber: 100
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/editor/page.tsx",
-                                                        lineNumber: 181,
+                                                        lineNumber: 185,
                                                         columnNumber: 11
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -419,12 +426,12 @@ function Home() {
                                                             role: "img"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/editor/page.tsx",
-                                                            lineNumber: 182,
+                                                            lineNumber: 186,
                                                             columnNumber: 42
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/editor/page.tsx",
-                                                        lineNumber: 182,
+                                                        lineNumber: 186,
                                                         columnNumber: 11
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -438,25 +445,25 @@ function Home() {
                                                                     size: 16
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/editor/page.tsx",
-                                                                    lineNumber: 183,
+                                                                    lineNumber: 187,
                                                                     columnNumber: 153
                                                                 }, this),
                                                                 exporting ? copy.exporting : copy.download
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/editor/page.tsx",
-                                                            lineNumber: 183,
+                                                            lineNumber: 187,
                                                             columnNumber: 45
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/editor/page.tsx",
-                                                        lineNumber: 183,
+                                                        lineNumber: 187,
                                                         columnNumber: 11
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/editor/page.tsx",
-                                                lineNumber: 180,
+                                                lineNumber: 184,
                                                 columnNumber: 9
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -464,13 +471,13 @@ function Home() {
                                                 children: "2026 iCover Studio."
                                             }, void 0, false, {
                                                 fileName: "[project]/app/editor/page.tsx",
-                                                lineNumber: 185,
+                                                lineNumber: 189,
                                                 columnNumber: 9
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/editor/page.tsx",
-                                        lineNumber: 179,
+                                        lineNumber: 183,
                                         columnNumber: 9
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -487,12 +494,12 @@ function Home() {
                                                             children: copy.coverStyle
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/editor/page.tsx",
-                                                            lineNumber: 189,
+                                                            lineNumber: 193,
                                                             columnNumber: 91
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/editor/page.tsx",
-                                                        lineNumber: 189,
+                                                        lineNumber: 193,
                                                         columnNumber: 58
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -512,7 +519,7 @@ function Home() {
                                                                         children: "Aa"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 191,
+                                                                        lineNumber: 195,
                                                                         columnNumber: 194
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -521,26 +528,26 @@ function Home() {
                                                                                 children: copy.original
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                                lineNumber: 191,
+                                                                                lineNumber: 195,
                                                                                 columnNumber: 253
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("small", {
                                                                                 children: copy.originalHint
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                                lineNumber: 191,
+                                                                                lineNumber: 195,
                                                                                 columnNumber: 285
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 191,
+                                                                        lineNumber: 195,
                                                                         columnNumber: 247
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 191,
+                                                                lineNumber: 195,
                                                                 columnNumber: 15
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -550,31 +557,32 @@ function Home() {
                                                                             ...s,
                                                                             mode: "essentials",
                                                                             corner: "top-right",
-                                                                            textColor: "#111111"
+                                                                            textColor: "#111111",
+                                                                            treatment: "original"
                                                                         })),
                                                                 children: [
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                         className: "style-thumb essentials-thumb",
                                                                         children: [
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                children: copy.essentials
+                                                                                children: "Essentials"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                                lineNumber: 192,
-                                                                                columnNumber: 263
+                                                                                lineNumber: 196,
+                                                                                columnNumber: 286
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$music$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Music2$3e$__["Music2"], {
                                                                                 size: 19
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                                lineNumber: 192,
-                                                                                columnNumber: 293
+                                                                                lineNumber: 196,
+                                                                                columnNumber: 309
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 192,
-                                                                        columnNumber: 216
+                                                                        lineNumber: 196,
+                                                                        columnNumber: 239
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                         children: [
@@ -582,38 +590,38 @@ function Home() {
                                                                                 children: copy.essentials
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                                lineNumber: 192,
-                                                                                columnNumber: 325
+                                                                                lineNumber: 196,
+                                                                                columnNumber: 341
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("small", {
                                                                                 children: copy.essentialsHint
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                                lineNumber: 192,
-                                                                                columnNumber: 359
+                                                                                lineNumber: 196,
+                                                                                columnNumber: 375
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 192,
-                                                                        columnNumber: 319
+                                                                        lineNumber: 196,
+                                                                        columnNumber: 335
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 192,
+                                                                lineNumber: 196,
                                                                 columnNumber: 15
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/editor/page.tsx",
-                                                        lineNumber: 190,
+                                                        lineNumber: 194,
                                                         columnNumber: 13
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/editor/page.tsx",
-                                                lineNumber: 189,
+                                                lineNumber: 193,
                                                 columnNumber: 11
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -625,12 +633,12 @@ function Home() {
                                                             children: essentials ? copy.titleBand : copy.typography
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/editor/page.tsx",
-                                                            lineNumber: 196,
+                                                            lineNumber: 200,
                                                             columnNumber: 77
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/editor/page.tsx",
-                                                        lineNumber: 196,
+                                                        lineNumber: 200,
                                                         columnNumber: 44
                                                     }, this),
                                                     essentials ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -641,16 +649,16 @@ function Home() {
                                                                 maxLength: 100,
                                                                 value: settings.essentialsTitle,
                                                                 onChange: (e)=>update("essentialsTitle", e.target.value),
-                                                                placeholder: copy.essentials
+                                                                placeholder: copy.sampleEssentials
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 197,
+                                                                lineNumber: 201,
                                                                 columnNumber: 64
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/editor/page.tsx",
-                                                        lineNumber: 197,
+                                                        lineNumber: 201,
                                                         columnNumber: 27
                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                                                         children: [
@@ -665,17 +673,17 @@ function Home() {
                                                                                 maxLength: 100,
                                                                                 value: settings.title,
                                                                                 onChange: (e)=>update("title", e.target.value),
-                                                                                placeholder: "Big Title"
+                                                                                placeholder: copy.sampleTitle
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                                lineNumber: 197,
-                                                                                columnNumber: 286
+                                                                                lineNumber: 201,
+                                                                                columnNumber: 292
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 197,
-                                                                        columnNumber: 246
+                                                                        lineNumber: 201,
+                                                                        columnNumber: 252
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                                                         className: "range-label title-size-range",
@@ -688,8 +696,8 @@ function Home() {
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                                lineNumber: 197,
-                                                                                columnNumber: 480
+                                                                                lineNumber: 201,
+                                                                                columnNumber: 493
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                                                 type: "range",
@@ -701,22 +709,22 @@ function Home() {
                                                                                 onChange: (e)=>updateClassicFontSize("classicFontSize", +e.target.value)
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                                lineNumber: 197,
-                                                                                columnNumber: 521
+                                                                                lineNumber: 201,
+                                                                                columnNumber: 534
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 197,
-                                                                        columnNumber: 413
+                                                                        lineNumber: 201,
+                                                                        columnNumber: 426
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                         className: "field-label weight-label",
                                                                         children: copy.bigTitleWeight
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 197,
-                                                                        columnNumber: 742
+                                                                        lineNumber: 201,
+                                                                        columnNumber: 755
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                         className: "segmented weight-options",
@@ -736,13 +744,13 @@ function Home() {
                                                                                 children: label
                                                                             }, value, false, {
                                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                                lineNumber: 197,
-                                                                                columnNumber: 934
+                                                                                lineNumber: 201,
+                                                                                columnNumber: 947
                                                                             }, this))
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 197,
-                                                                        columnNumber: 811
+                                                                        lineNumber: 201,
+                                                                        columnNumber: 824
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                                                         className: "field",
@@ -752,17 +760,17 @@ function Home() {
                                                                                 maxLength: 100,
                                                                                 value: settings.subtitle,
                                                                                 onChange: (e)=>update("subtitle", e.target.value),
-                                                                                placeholder: "Sub Title"
+                                                                                placeholder: copy.sampleSubtitle
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                                lineNumber: 197,
-                                                                                columnNumber: 1189
+                                                                                lineNumber: 201,
+                                                                                columnNumber: 1202
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 197,
-                                                                        columnNumber: 1149
+                                                                        lineNumber: 201,
+                                                                        columnNumber: 1162
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                                                         className: "range-label title-size-range",
@@ -775,8 +783,8 @@ function Home() {
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                                lineNumber: 197,
-                                                                                columnNumber: 1389
+                                                                                lineNumber: 201,
+                                                                                columnNumber: 1412
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                                                 type: "range",
@@ -788,22 +796,22 @@ function Home() {
                                                                                 onChange: (e)=>updateClassicFontSize("classicSubtitleFontSize", +e.target.value)
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                                lineNumber: 197,
-                                                                                columnNumber: 1438
+                                                                                lineNumber: 201,
+                                                                                columnNumber: 1461
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 197,
-                                                                        columnNumber: 1322
+                                                                        lineNumber: 201,
+                                                                        columnNumber: 1345
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                         className: "field-label weight-label",
                                                                         children: copy.subtitleWeight
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 197,
-                                                                        columnNumber: 1683
+                                                                        lineNumber: 201,
+                                                                        columnNumber: 1706
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                         className: "segmented weight-options",
@@ -823,13 +831,13 @@ function Home() {
                                                                                 children: label
                                                                             }, value, false, {
                                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                                lineNumber: 197,
-                                                                                columnNumber: 1875
+                                                                                lineNumber: 201,
+                                                                                columnNumber: 1898
                                                                             }, this))
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 197,
-                                                                        columnNumber: 1752
+                                                                        lineNumber: 201,
+                                                                        columnNumber: 1775
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                                                         className: "field",
@@ -839,31 +847,31 @@ function Home() {
                                                                                 maxLength: 150,
                                                                                 value: settings.footer,
                                                                                 onChange: (e)=>update("footer", e.target.value),
-                                                                                placeholder: "Footer"
+                                                                                placeholder: copy.sampleFooter
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                                lineNumber: 197,
-                                                                                columnNumber: 2137
+                                                                                lineNumber: 201,
+                                                                                columnNumber: 2160
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 197,
-                                                                        columnNumber: 2099
+                                                                        lineNumber: 201,
+                                                                        columnNumber: 2122
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 197,
-                                                                columnNumber: 222
+                                                                lineNumber: 201,
+                                                                columnNumber: 228
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                 className: "field-label",
                                                                 children: copy.titleAlignment
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 197,
-                                                                columnNumber: 2269
+                                                                lineNumber: 201,
+                                                                columnNumber: 2303
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                 className: "segmented typography-alignment",
@@ -883,13 +891,13 @@ function Home() {
                                                                         children: label
                                                                     }, value, false, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 197,
-                                                                        columnNumber: 2454
+                                                                        lineNumber: 201,
+                                                                        columnNumber: 2488
                                                                     }, this))
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 197,
-                                                                columnNumber: 2325
+                                                                lineNumber: 201,
+                                                                columnNumber: 2359
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                                                 className: "range-label",
@@ -902,8 +910,8 @@ function Home() {
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 197,
-                                                                        columnNumber: 2702
+                                                                        lineNumber: 201,
+                                                                        columnNumber: 2736
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                                         type: "range",
@@ -914,20 +922,20 @@ function Home() {
                                                                         onChange: (e)=>update("classicTitleY", +e.target.value)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 197,
-                                                                        columnNumber: 2740
+                                                                        lineNumber: 201,
+                                                                        columnNumber: 2774
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 197,
-                                                                columnNumber: 2651
+                                                                lineNumber: 201,
+                                                                columnNumber: 2685
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/editor/page.tsx",
-                                                        lineNumber: 197,
-                                                        columnNumber: 220
+                                                        lineNumber: 201,
+                                                        columnNumber: 226
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "color-row",
@@ -941,20 +949,20 @@ function Home() {
                                                                         onChange: (e)=>update("textColor", e.target.value)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 198,
+                                                                        lineNumber: 202,
                                                                         columnNumber: 73
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                         children: copy.textAndLogo
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 198,
+                                                                        lineNumber: 202,
                                                                         columnNumber: 173
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 198,
+                                                                lineNumber: 202,
                                                                 columnNumber: 40
                                                             }, this),
                                                             essentials && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -966,26 +974,26 @@ function Home() {
                                                                         onChange: (e)=>update("bandColor", e.target.value)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 198,
+                                                                        lineNumber: 202,
                                                                         columnNumber: 260
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                         children: copy.bandColor
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 198,
+                                                                        lineNumber: 202,
                                                                         columnNumber: 360
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 198,
+                                                                lineNumber: 202,
                                                                 columnNumber: 227
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/editor/page.tsx",
-                                                        lineNumber: 198,
+                                                        lineNumber: 202,
                                                         columnNumber: 13
                                                     }, this),
                                                     essentials && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -1001,7 +1009,7 @@ function Home() {
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 199,
+                                                                        lineNumber: 203,
                                                                         columnNumber: 77
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1021,13 +1029,13 @@ function Home() {
                                                                         }
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 199,
+                                                                        lineNumber: 203,
                                                                         columnNumber: 121
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 199,
+                                                                lineNumber: 203,
                                                                 columnNumber: 30
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -1041,7 +1049,7 @@ function Home() {
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 199,
+                                                                        lineNumber: 203,
                                                                         columnNumber: 556
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1053,25 +1061,25 @@ function Home() {
                                                                         onChange: (e)=>update("bandHeight", +e.target.value)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 199,
+                                                                        lineNumber: 203,
                                                                         columnNumber: 591
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 199,
+                                                                lineNumber: 203,
                                                                 columnNumber: 508
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/editor/page.tsx",
-                                                        lineNumber: 199,
+                                                        lineNumber: 203,
                                                         columnNumber: 28
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/editor/page.tsx",
-                                                lineNumber: 196,
+                                                lineNumber: 200,
                                                 columnNumber: 11
                                             }, this),
                                             essentials && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1083,12 +1091,12 @@ function Home() {
                                                             children: copy.yourPhoto
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/editor/page.tsx",
-                                                            lineNumber: 202,
+                                                            lineNumber: 206,
                                                             columnNumber: 92
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/editor/page.tsx",
-                                                        lineNumber: 202,
+                                                        lineNumber: 206,
                                                         columnNumber: 59
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1103,7 +1111,7 @@ function Home() {
                                                         }
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/editor/page.tsx",
-                                                        lineNumber: 203,
+                                                        lineNumber: 207,
                                                         columnNumber: 13
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1124,34 +1132,34 @@ function Home() {
                                                                 size: 23
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 204,
+                                                                lineNumber: 208,
                                                                 columnNumber: 316
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
                                                                 children: uploading ? copy.openingPhoto : photo ? copy.replacePhoto : copy.addPhoto
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 204,
+                                                                lineNumber: 208,
                                                                 columnNumber: 338
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                 children: copy.dropPhoto
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 204,
+                                                                lineNumber: 208,
                                                                 columnNumber: 430
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("small", {
                                                                 children: copy.photoTypes
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 204,
+                                                                lineNumber: 208,
                                                                 columnNumber: 459
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/editor/page.tsx",
-                                                        lineNumber: 204,
+                                                        lineNumber: 208,
                                                         columnNumber: 13
                                                     }, this),
                                                     photo && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1161,7 +1169,7 @@ function Home() {
                                                                 children: photoName
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 205,
+                                                                lineNumber: 209,
                                                                 columnNumber: 49
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1177,18 +1185,18 @@ function Home() {
                                                                     size: 14
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/editor/page.tsx",
-                                                                    lineNumber: 205,
+                                                                    lineNumber: 209,
                                                                     columnNumber: 230
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 205,
+                                                                lineNumber: 209,
                                                                 columnNumber: 73
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/editor/page.tsx",
-                                                        lineNumber: 205,
+                                                        lineNumber: 209,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1208,18 +1216,18 @@ function Home() {
                                                                             size: 14
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/editor/page.tsx",
-                                                                            lineNumber: 206,
+                                                                            lineNumber: 210,
                                                                             columnNumber: 248
                                                                         }, this)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 206,
+                                                                        lineNumber: 210,
                                                                         columnNumber: 97
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 206,
+                                                                lineNumber: 210,
                                                                 columnNumber: 51
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -1233,7 +1241,7 @@ function Home() {
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 206,
+                                                                        lineNumber: 210,
                                                                         columnNumber: 333
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1246,13 +1254,13 @@ function Home() {
                                                                         onChange: (e)=>updatePhotoFrame("photoMargin", +e.target.value)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 206,
+                                                                        lineNumber: 210,
                                                                         columnNumber: 369
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 206,
+                                                                lineNumber: 210,
                                                                 columnNumber: 285
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -1262,7 +1270,7 @@ function Home() {
                                                                         children: copy.includeTopMargin
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 206,
+                                                                        lineNumber: 210,
                                                                         columnNumber: 620
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1272,13 +1280,13 @@ function Home() {
                                                                         onChange: (e)=>update("photoTopMargin", e.target.checked)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 206,
+                                                                        lineNumber: 210,
                                                                         columnNumber: 656
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 206,
+                                                                lineNumber: 210,
                                                                 columnNumber: 569
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -1292,7 +1300,7 @@ function Home() {
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 206,
+                                                                        lineNumber: 210,
                                                                         columnNumber: 847
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1305,19 +1313,19 @@ function Home() {
                                                                         onChange: (e)=>updatePhotoFrame("photoRadius", +e.target.value)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 206,
+                                                                        lineNumber: 210,
                                                                         columnNumber: 883
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 206,
+                                                                lineNumber: 210,
                                                                 columnNumber: 795
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/editor/page.tsx",
-                                                        lineNumber: 206,
+                                                        lineNumber: 210,
                                                         columnNumber: 13
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1325,7 +1333,7 @@ function Home() {
                                                         children: copy.photoTreatment
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/editor/page.tsx",
-                                                        lineNumber: 207,
+                                                        lineNumber: 211,
                                                         columnNumber: 13
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1350,12 +1358,12 @@ function Home() {
                                                                 children: label
                                                             }, value, false, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 207,
+                                                                lineNumber: 211,
                                                                 columnNumber: 227
                                                             }, this))
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/editor/page.tsx",
-                                                        lineNumber: 207,
+                                                        lineNumber: 211,
                                                         columnNumber: 69
                                                     }, this),
                                                     settings.treatment === "duotone" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1371,7 +1379,7 @@ function Home() {
                                                                     onClick: ()=>update("tint", color)
                                                                 }, color, false, {
                                                                     fileName: "[project]/app/editor/page.tsx",
-                                                                    lineNumber: 208,
+                                                                    lineNumber: 212,
                                                                     columnNumber: 101
                                                                 }, this)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -1383,18 +1391,18 @@ function Home() {
                                                                     onChange: (e)=>update("tint", e.target.value)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/editor/page.tsx",
-                                                                    lineNumber: 208,
+                                                                    lineNumber: 212,
                                                                     columnNumber: 362
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 208,
+                                                                lineNumber: 212,
                                                                 columnNumber: 331
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/editor/page.tsx",
-                                                        lineNumber: 208,
+                                                        lineNumber: 212,
                                                         columnNumber: 50
                                                     }, this),
                                                     photo ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1411,7 +1419,7 @@ function Home() {
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 209,
+                                                                        lineNumber: 213,
                                                                         columnNumber: 95
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1424,13 +1432,13 @@ function Home() {
                                                                         onChange: (e)=>update("zoom", +e.target.value)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 209,
+                                                                        lineNumber: 213,
                                                                         columnNumber: 135
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 209,
+                                                                lineNumber: 213,
                                                                 columnNumber: 53
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -1444,7 +1452,7 @@ function Home() {
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 209,
+                                                                        lineNumber: 213,
                                                                         columnNumber: 353
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1456,13 +1464,13 @@ function Home() {
                                                                         onChange: (e)=>update("offsetX", +e.target.value)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 209,
+                                                                        lineNumber: 213,
                                                                         columnNumber: 385
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 209,
+                                                                lineNumber: 213,
                                                                 columnNumber: 305
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -1476,7 +1484,7 @@ function Home() {
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 209,
+                                                                        lineNumber: 213,
                                                                         columnNumber: 602
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1488,32 +1496,32 @@ function Home() {
                                                                         onChange: (e)=>update("offsetY", +e.target.value)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 209,
+                                                                        lineNumber: 213,
                                                                         columnNumber: 634
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 209,
+                                                                lineNumber: 213,
                                                                 columnNumber: 556
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/editor/page.tsx",
-                                                        lineNumber: 209,
+                                                        lineNumber: 213,
                                                         columnNumber: 22
                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                         className: "help-text",
                                                         children: copy.photoHelp
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/editor/page.tsx",
-                                                        lineNumber: 209,
+                                                        lineNumber: 213,
                                                         columnNumber: 814
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/editor/page.tsx",
-                                                lineNumber: 202,
+                                                lineNumber: 206,
                                                 columnNumber: 26
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1525,12 +1533,12 @@ function Home() {
                                                             children: copy.appleLogo
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/editor/page.tsx",
-                                                            lineNumber: 212,
+                                                            lineNumber: 216,
                                                             columnNumber: 115
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/editor/page.tsx",
-                                                        lineNumber: 212,
+                                                        lineNumber: 216,
                                                         columnNumber: 82
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -1540,7 +1548,7 @@ function Home() {
                                                                 children: copy.showLogo
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 212,
+                                                                lineNumber: 216,
                                                                 columnNumber: 176
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1550,13 +1558,13 @@ function Home() {
                                                                 onChange: (e)=>update("showLogo", e.target.checked)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 212,
+                                                                lineNumber: 216,
                                                                 columnNumber: 204
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/editor/page.tsx",
-                                                        lineNumber: 212,
+                                                        lineNumber: 216,
                                                         columnNumber: 146
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1578,25 +1586,25 @@ function Home() {
                                                                         className: `corner-icon ${corner}`,
                                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("i", {}, void 0, false, {
                                                                             fileName: "[project]/app/editor/page.tsx",
-                                                                            lineNumber: 213,
+                                                                            lineNumber: 217,
                                                                             columnNumber: 617
                                                                         }, this)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 213,
+                                                                        lineNumber: 217,
                                                                         columnNumber: 575
                                                                     }, this),
                                                                     copy.corners[corner]
                                                                 ]
                                                             }, corner, true, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 213,
+                                                                lineNumber: 217,
                                                                 columnNumber: 214
                                                             }, this);
                                                         })
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/editor/page.tsx",
-                                                        lineNumber: 213,
+                                                        lineNumber: 217,
                                                         columnNumber: 13
                                                     }, this),
                                                     bottomLogoUnavailable && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1604,13 +1612,13 @@ function Home() {
                                                         children: copy.bottomCornerHelp
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/editor/page.tsx",
-                                                        lineNumber: 214,
+                                                        lineNumber: 218,
                                                         columnNumber: 39
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/editor/page.tsx",
-                                                lineNumber: 212,
+                                                lineNumber: 216,
                                                 columnNumber: 11
                                             }, this),
                                             !essentials && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1622,12 +1630,12 @@ function Home() {
                                                             children: copy.background
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/editor/page.tsx",
-                                                            lineNumber: 217,
+                                                            lineNumber: 221,
                                                             columnNumber: 106
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/editor/page.tsx",
-                                                        lineNumber: 217,
+                                                        lineNumber: 221,
                                                         columnNumber: 73
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1652,12 +1660,12 @@ function Home() {
                                                                 children: label
                                                             }, value, false, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 217,
+                                                                lineNumber: 221,
                                                                 columnNumber: 278
                                                             }, this))
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/editor/page.tsx",
-                                                        lineNumber: 217,
+                                                        lineNumber: 221,
                                                         columnNumber: 138
                                                     }, this),
                                                     settings.backgroundType === "custom" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -1669,27 +1677,27 @@ function Home() {
                                                                 onChange: (e)=>update("customColor", e.target.value)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 218,
+                                                                lineNumber: 222,
                                                                 columnNumber: 104
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                 children: copy.backgroundColor
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 218,
+                                                                lineNumber: 222,
                                                                 columnNumber: 208
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("code", {
                                                                 children: settings.customColor
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 218,
+                                                                lineNumber: 222,
                                                                 columnNumber: 243
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/editor/page.tsx",
-                                                        lineNumber: 218,
+                                                        lineNumber: 222,
                                                         columnNumber: 53
                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "swatches",
@@ -1709,44 +1717,44 @@ function Home() {
                                                                         alt: ""
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 218,
+                                                                        lineNumber: 222,
                                                                         columnNumber: 903
                                                                     }, this),
                                                                     (settings.backgroundType === "gradients" ? settings.gradient : settings.color) === i && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
                                                                         size: 15
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/editor/page.tsx",
-                                                                        lineNumber: 218,
+                                                                        lineNumber: 222,
                                                                         columnNumber: 1057
                                                                     }, this)
                                                                 ]
                                                             }, `${settings.backgroundType}-${i}`, true, {
                                                                 fileName: "[project]/app/editor/page.tsx",
-                                                                lineNumber: 218,
+                                                                lineNumber: 222,
                                                                 columnNumber: 507
                                                             }, this);
                                                         })
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/editor/page.tsx",
-                                                        lineNumber: 218,
+                                                        lineNumber: 222,
                                                         columnNumber: 289
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/editor/page.tsx",
-                                                lineNumber: 217,
+                                                lineNumber: 221,
                                                 columnNumber: 27
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/editor/page.tsx",
-                                        lineNumber: 188,
+                                        lineNumber: 192,
                                         columnNumber: 9
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/editor/page.tsx",
-                                lineNumber: 178,
+                                lineNumber: 182,
                                 columnNumber: 7
                             }, this),
                             (error || status) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1764,30 +1772,30 @@ function Home() {
                                             size: 15
                                         }, void 0, false, {
                                             fileName: "[project]/app/editor/page.tsx",
-                                            lineNumber: 222,
+                                            lineNumber: 226,
                                             columnNumber: 220
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/editor/page.tsx",
-                                        lineNumber: 222,
+                                        lineNumber: 226,
                                         columnNumber: 137
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/editor/page.tsx",
-                                lineNumber: 222,
+                                lineNumber: 226,
                                 columnNumber: 29
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/editor/page.tsx",
-                        lineNumber: 177,
+                        lineNumber: 181,
                         columnNumber: 5
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/editor/page.tsx",
-                lineNumber: 165,
+                lineNumber: 169,
                 columnNumber: 3
             }, this),
             handoff && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1811,7 +1819,7 @@ function Home() {
                                     "aria-hidden": "true"
                                 }, void 0, false, {
                                     fileName: "[project]/app/editor/page.tsx",
-                                    lineNumber: 228,
+                                    lineNumber: 232,
                                     columnNumber: 9
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
@@ -1820,13 +1828,13 @@ function Home() {
                                     alt: ""
                                 }, void 0, false, {
                                     fileName: "[project]/app/editor/page.tsx",
-                                    lineNumber: 229,
+                                    lineNumber: 233,
                                     columnNumber: 9
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/editor/page.tsx",
-                            lineNumber: 227,
+                            lineNumber: 231,
                             columnNumber: 7
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1834,24 +1842,24 @@ function Home() {
                             children: copy.thereYouGo
                         }, void 0, false, {
                             fileName: "[project]/app/editor/page.tsx",
-                            lineNumber: 231,
+                            lineNumber: 235,
                             columnNumber: 7
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/editor/page.tsx",
-                    lineNumber: 226,
+                    lineNumber: 230,
                     columnNumber: 5
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/editor/page.tsx",
-                lineNumber: 225,
+                lineNumber: 229,
                 columnNumber: 15
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/editor/page.tsx",
-        lineNumber: 164,
+        lineNumber: 168,
         columnNumber: 10
     }, this);
 }
@@ -2223,9 +2231,9 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$apple$2d$logo$2e$ts__
 ;
 const defaults = {
     mode: "classic",
-    title: "Big Title",
-    subtitle: "Sub Title",
-    footer: "Footer",
+    title: "Title",
+    subtitle: "Subtitle",
+    footer: "Description",
     classicAlign: "left",
     classicTitleY: 22,
     classicFontSize: 192,
@@ -2242,8 +2250,8 @@ const defaults = {
     textColor: "#ffffff",
     bandColor: "#c4c4c4",
     bandHeight: 31,
-    essentialsFontSize: 148,
-    treatment: "mono",
+    essentialsFontSize: 136,
+    treatment: "original",
     tint: "#e8e8ed",
     photoMargin: 0,
     photoTopMargin: false,

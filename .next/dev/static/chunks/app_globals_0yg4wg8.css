@@ -1724,15 +1724,15 @@ body:has(.download-reveal:not(.is-leaving)) .app-shell {
 }
 
 .download-reveal.is-leaving:before {
-  animation: .55s .35s reverse forwards revealFade;
+  animation: .5s .42s reverse forwards revealFade;
 }
 
 .download-reveal.is-leaving .download-case {
-  animation: .78s cubic-bezier(.55, 0, .2, 1) .52s both coverBack;
+  animation: .74s cubic-bezier(.5, .02, .78, .18) .48s both coverSend;
 }
 
 .download-reveal.is-leaving .download-cd {
-  animation: .7s cubic-bezier(.4, 0, .2, 1) both cdBack;
+  animation: .5s cubic-bezier(.4, 0, .2, 1) both cdBack;
 }
 
 .download-reveal.is-leaving .download-caption {
@@ -1823,13 +1823,17 @@ body:has(.download-reveal:not(.is-leaving)) .app-shell {
   }
 }
 
-@keyframes coverBack {
-  from {
+@keyframes coverSend {
+  0% {
     transform: none;
   }
 
-  to {
-    transform: translate(var(--from-x),var(--from-y)) scale(var(--from-scale));
+  16% {
+    transform: translateY(14px)scale(.975);
+  }
+
+  100% {
+    transform: translateY(calc(-64vh - 72%))scale(.8);
   }
 }
 
