@@ -6,8 +6,9 @@ export type CoverSettings = {
   showLogo: boolean; corner: "top-left" | "top-right" | "bottom-left" | "bottom-right";
   backgroundType: "gradients" | "colors" | "custom";
   gradient: number; color: number; customColor: string;
-  textColor: string; bandColor: string; bandPattern: boolean; bandHeight: number;
+  textColor: string; bandColor: string; bandHeight: number; essentialsFontSize: number;
   treatment: "original" | "mono" | "duotone"; tint: string;
+  photoMargin: number; photoRadius: number;
   zoom: number; offsetX: number; offsetY: number;
 };
 
@@ -15,8 +16,9 @@ export const defaults: CoverSettings = {
   mode: "classic", title: "Big Title", subtitle: "Sub Title", footer: "Footer",
   essentialsTitle: "Essentials", showLogo: true, corner: "top-left",
   backgroundType: "gradients", gradient: 0, color: 0, customColor: "#7865a8",
-  textColor: "#ffffff", bandColor: "#c4c4c4", bandPattern: false, bandHeight: 31,
-  treatment: "mono", tint: "#b8b0da", zoom: 1, offsetX: 50, offsetY: 50,
+  textColor: "#ffffff", bandColor: "#c4c4c4", bandHeight: 31, essentialsFontSize: 148,
+  treatment: "mono", tint: "#b8b0da", photoMargin: 5, photoRadius: 3,
+  zoom: 1, offsetX: 50, offsetY: 50,
 };
 
 const images = new Map<string, Promise<HTMLImageElement>>();
@@ -41,10 +43,25 @@ function text(ctx: CanvasRenderingContext2D, value: string, x: number, y: number
   ctx.fillText(value, x, y);
 }
 
+function roundedRect(ctx: CanvasRenderingContext2D, x: number, y: number, width: number, height: number, radius: number) {
+  const r = Math.min(radius, width / 2, height / 2);
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + width - r, y);
+  ctx.quadraticCurveTo(x + width, y, x + width, y + r);
+  ctx.lineTo(x + width, y + height - r);
+  ctx.quadraticCurveTo(x + width, y + height, x + width - r, y + height);
+  ctx.lineTo(x + r, y + height);
+  ctx.quadraticCurveTo(x, y + height, x, y + height - r);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+
 // Preview and export share this renderer, including crop and pixel-level color treatment.
 export async function renderCover(canvas: HTMLCanvasElement, s: CoverSettings, photo: string | null) {
   const size = 1200;
-  const background = s.backgroundType === "custom" ? null : await loadImage(`/assets/${s.backgroundType}/${s.backgroundType === "gradients" ? s.gradient : s.color}.png`);
+  const background = s.mode === "essentials" || s.backgroundType === "custom" ? null : await loadImage(`/assets/${s.backgroundType}/${s.backgroundType === "gradients" ? s.gradient : s.color}.png`);
   const uploaded = photo ? await loadImage(photo) : null;
   await Promise.all([document.fonts.load('600 100px CoverFont'), document.fonts.load('300 100px CoverFont'), document.fonts.load('400 100px CoverFont')]);
   canvas.width = canvas.height = size;
@@ -55,32 +72,51 @@ export async function renderCover(canvas: HTMLCanvasElement, s: CoverSettings, p
   if (background) ctx.drawImage(background, 0, 0, size, size);
   const band = Math.round(size * s.bandHeight / 100);
   if (s.mode === "essentials") {
+    const inset = Math.round(size * s.photoMargin / 100);
+    const photoX = inset;
+    const photoY = band;
+    const photoWidth = size - inset * 2;
+    const photoHeight = size - band - inset;
+    const photoRadius = Math.round(size * s.photoRadius / 100);
+    ctx.fillStyle = s.bandColor;
+    ctx.fillRect(0, 0, size, size);
     if (uploaded) {
-      const height = size - band;
-      const scale = Math.max(size / uploaded.width, height / uploaded.height) * s.zoom;
+      const photoCanvas = document.createElement("canvas");
+      photoCanvas.width = photoWidth;
+      photoCanvas.height = photoHeight;
+      const photoCtx = photoCanvas.getContext("2d")!;
+      const scale = Math.max(photoWidth / uploaded.width, photoHeight / uploaded.height) * s.zoom;
       const w = uploaded.width * scale, h = uploaded.height * scale;
-      ctx.save();
-      ctx.beginPath(); ctx.rect(0, band, size, height); ctx.clip();
-      ctx.drawImage(uploaded, (size - w) * s.offsetX / 100, band + (height - h) * s.offsetY / 100, w, h);
-      ctx.restore();
+      photoCtx.drawImage(uploaded, (photoWidth - w) * s.offsetX / 100, (photoHeight - h) * s.offsetY / 100, w, h);
       if (s.treatment !== "original") {
-        const pixels = ctx.getImageData(0, band, size, height);
+        const pixels = photoCtx.getImageData(0, 0, photoWidth, photoHeight);
         const tint = s.treatment === "mono" ? [255, 255, 255] : [1, 3, 5].map(i => parseInt(s.tint.slice(i, i + 2), 16));
         for (let i = 0; i < pixels.data.length; i += 4) {
           const luma = (pixels.data[i] * .2126 + pixels.data[i+1] * .7152 + pixels.data[i+2] * .0722) / 255;
           for (let c = 0; c < 3; c++) pixels.data[i+c] = Math.round(tint[c] * luma);
         }
-        ctx.putImageData(pixels, 0, band);
+        photoCtx.putImageData(pixels, 0, 0);
       }
+      ctx.save();
+      roundedRect(ctx, photoX, photoY, photoWidth, photoHeight, photoRadius);
+      ctx.clip();
+      ctx.drawImage(photoCanvas, photoX, photoY);
+      ctx.restore();
+    } else {
+      const placeholder = ctx.createLinearGradient(photoX, photoY, photoX + photoWidth, photoY + photoHeight);
+      placeholder.addColorStop(0, "#777777");
+      placeholder.addColorStop(1, "#262629");
+      ctx.save();
+      roundedRect(ctx, photoX, photoY, photoWidth, photoHeight, photoRadius);
+      ctx.clip();
+      ctx.fillStyle = placeholder;
+      ctx.fillRect(photoX, photoY, photoWidth, photoHeight);
+      ctx.restore();
     }
     ctx.fillStyle = s.bandColor;
     ctx.fillRect(0, 0, size, band);
-    if (s.bandPattern) {
-      if (background) ctx.drawImage(background, 0, 0, size, band);
-      else { ctx.fillStyle = s.customColor; ctx.fillRect(0, 0, size, band); }
-    }
     ctx.fillStyle = s.textColor;
-    text(ctx, s.essentialsTitle, 48, band - 168, 148, 600, 1104);
+    text(ctx, s.essentialsTitle, 48, Math.max(28, band - s.essentialsFontSize - 20), s.essentialsFontSize, 600, 1104);
   } else {
     ctx.fillStyle = s.textColor;
     text(ctx, s.title, 100, 260, 192, 600, 1000);
