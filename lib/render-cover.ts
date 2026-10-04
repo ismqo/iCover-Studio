@@ -3,6 +3,9 @@ import { APPLE_MUSIC_PATH } from "./apple-logo";
 export type CoverSettings = {
   mode: "classic" | "essentials";
   title: string; subtitle: string; footer: string; essentialsTitle: string;
+  classicAlign: "left" | "center"; classicTitleY: number;
+  classicFontSize: number; classicSubtitleFontSize: number;
+  classicTitleWeight: "normal" | "bold"; classicSubtitleWeight: "normal" | "bold";
   showLogo: boolean; corner: "top-left" | "top-right" | "bottom-left" | "bottom-right";
   backgroundType: "gradients" | "colors" | "custom";
   gradient: number; color: number; customColor: string;
@@ -14,6 +17,8 @@ export type CoverSettings = {
 
 export const defaults: CoverSettings = {
   mode: "classic", title: "Big Title", subtitle: "Sub Title", footer: "Footer",
+  classicAlign: "left", classicTitleY: 22, classicFontSize: 192, classicSubtitleFontSize: 160,
+  classicTitleWeight: "bold", classicSubtitleWeight: "normal",
   essentialsTitle: "Essentials", showLogo: true, corner: "top-left",
   backgroundType: "gradients", gradient: 0, color: 0, customColor: "#7865a8",
   textColor: "#ffffff", bandColor: "#c4c4c4", bandHeight: 31, essentialsFontSize: 148,
@@ -119,8 +124,13 @@ export async function renderCover(canvas: HTMLCanvasElement, s: CoverSettings, p
     text(ctx, s.essentialsTitle, 48, Math.max(28, band - s.essentialsFontSize - 20), s.essentialsFontSize, 600, 1104);
   } else {
     ctx.fillStyle = s.textColor;
-    text(ctx, s.title, 100, 260, 192, 600, 1000);
-    text(ctx, s.subtitle, 100, 452, 160, 300, 1000);
+    ctx.textAlign = s.classicAlign;
+    const classicX = s.classicAlign === "center" ? size / 2 : 100;
+    const maxTitleY = Math.max(15, Math.floor((900 - s.classicFontSize - s.classicSubtitleFontSize) / 12));
+    const titleY = Math.round(size * Math.min(s.classicTitleY, maxTitleY) / 100);
+    text(ctx, s.title, classicX, titleY, s.classicFontSize, s.classicTitleWeight === "bold" ? 600 : 300, 1000);
+    text(ctx, s.subtitle, classicX, titleY + s.classicFontSize, s.classicSubtitleFontSize, s.classicSubtitleWeight === "bold" ? 600 : 300, 1000);
+    ctx.textAlign = "left";
     ctx.globalAlpha = .65;
     text(ctx, s.footer, 100, s.showLogo && s.corner.startsWith("bottom") ? 954 : 1060, 60, 400, 1000);
     ctx.globalAlpha = 1;

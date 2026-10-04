@@ -26,6 +26,7 @@ export default function Home() {
   const essentials = settings.mode === "essentials";
   const bottomLogoUnavailable = essentials && (settings.photoMargin > 0 || settings.photoRadius > 0);
   const bandHeightMin = settings.corner.startsWith("bottom") ? Math.max(18, Math.ceil((settings.essentialsFontSize + 40) / 12)) : 27;
+  const classicTitleYMax = Math.max(15, Math.floor((900 - settings.classicFontSize - settings.classicSubtitleFontSize) / 12));
   const update = <K extends keyof CoverSettings>(key: K, value: CoverSettings[K]) => {
     setSettings(s => ({ ...s, [key]: value })); setStatus("");
   };
@@ -35,6 +36,14 @@ export default function Home() {
       [key]: value,
       corner: value > 0 && s.corner.startsWith("bottom") ? (s.corner === "bottom-left" ? "top-left" : "top-right") : s.corner,
     }));
+    setStatus("");
+  };
+  const updateClassicFontSize = (key: "classicFontSize" | "classicSubtitleFontSize", value: number) => {
+    setSettings(s => {
+      const totalSize = key === "classicFontSize" ? value + s.classicSubtitleFontSize : s.classicFontSize + value;
+      const maxTitleY = Math.max(15, Math.floor((900 - totalSize) / 12));
+      return { ...s, [key]: value, classicTitleY: Math.min(s.classicTitleY, maxTitleY) };
+    });
     setStatus("");
   };
 
@@ -102,13 +111,12 @@ export default function Home() {
     <header className="app-header">
       <nav className="editor-nav" aria-label="Main navigation">
       <a href="/" className="brand" aria-label="iCover home"><span className="brand-mark"><img src="/assets/brand/icover-icon.png" alt=""/></span>iCover<span className="studio-label">STUDIO</span></a>
-      <span className="editor-nav-caption">Playlist cover studio</span>
+      <span className="editor-nav-caption">YOUR MUSIC. YOUR ARTWORK.</span>
       <button className="download mobile-download" onClick={download} disabled={exporting || rendering || uploading}><ArrowDownToLine size={16}/>{exporting ? "Exporting…" : "Download cover"}</button>
       </nav>
     </header>
 
     <main>
-      <div className="intro"><div><div className="eyebrow">YOUR MUSIC. YOUR ARTWORK.</div></div></div>
       <div className="workspace">
         <section className="preview-panel" aria-label="Cover preview">
           <div className="section-top"><span><span className="live-dot"/> LIVE PREVIEW</span><button className="icon-button" onClick={reset} title="Reset cover" aria-label="Reset cover"><RotateCcw size={15}/></button></div>
@@ -125,7 +133,7 @@ export default function Home() {
           </div>
 
           <div className="control-section"><div className="section-heading"><h2>{essentials ? "Title band" : "Typography"}</h2></div>
-            {essentials ? <label className="field">Title<input maxLength={100} value={settings.essentialsTitle} onChange={e => update("essentialsTitle", e.target.value)} placeholder="Essentials"/></label> : <div className="fields"><label className="field">Big title<input maxLength={100} value={settings.title} onChange={e => update("title", e.target.value)} placeholder="Big Title"/></label><label className="field">Subtitle<input maxLength={100} value={settings.subtitle} onChange={e => update("subtitle", e.target.value)} placeholder="Sub Title"/></label><label className="field">Footer<input maxLength={150} value={settings.footer} onChange={e => update("footer", e.target.value)} placeholder="Footer"/></label></div>}
+            {essentials ? <label className="field">Title<input maxLength={100} value={settings.essentialsTitle} onChange={e => update("essentialsTitle", e.target.value)} placeholder="Essentials"/></label> : <><div className="fields"><label className="field">Big title<input maxLength={100} value={settings.title} onChange={e => update("title", e.target.value)} placeholder="Big Title"/></label><label className="range-label title-size-range">Big title size<span>{settings.classicFontSize}px</span><input type="range" min="96" max="216" step="4" value={settings.classicFontSize} style={rangeProgress(settings.classicFontSize, 96, 216)} onChange={e => updateClassicFontSize("classicFontSize", +e.target.value)}/></label><div className="field-label weight-label">Big title weight</div><div className="segmented weight-options">{([['normal','Normal'],['bold','Bold']] as const).map(([value,label]) => <button key={value} className={settings.classicTitleWeight === value ? "active" : ""} aria-pressed={settings.classicTitleWeight === value} onClick={() => update("classicTitleWeight", value)}>{label}</button>)}</div><label className="field">Subtitle<input maxLength={100} value={settings.subtitle} onChange={e => update("subtitle", e.target.value)} placeholder="Sub Title"/></label><label className="range-label title-size-range">Subtitle size<span>{settings.classicSubtitleFontSize}px</span><input type="range" min="72" max="180" step="4" value={settings.classicSubtitleFontSize} style={rangeProgress(settings.classicSubtitleFontSize, 72, 180)} onChange={e => updateClassicFontSize("classicSubtitleFontSize", +e.target.value)}/></label><div className="field-label weight-label">Subtitle weight</div><div className="segmented weight-options">{([['normal','Normal'],['bold','Bold']] as const).map(([value,label]) => <button key={value} className={settings.classicSubtitleWeight === value ? "active" : ""} aria-pressed={settings.classicSubtitleWeight === value} onClick={() => update("classicSubtitleWeight", value)}>{label}</button>)}</div><label className="field">Footer<input maxLength={150} value={settings.footer} onChange={e => update("footer", e.target.value)} placeholder="Footer"/></label></div><div className="field-label">Title alignment</div><div className="segmented typography-alignment">{([['left','Left'],['center','Center']] as const).map(([value,label]) => <button key={value} className={settings.classicAlign === value ? "active" : ""} aria-pressed={settings.classicAlign === value} onClick={() => update("classicAlign", value)}>{label}</button>)}</div><label className="range-label">Title group vertical position<span>{settings.classicTitleY}%</span><input type="range" min="15" max={classicTitleYMax} value={settings.classicTitleY} style={rangeProgress(settings.classicTitleY, 15, classicTitleYMax)} onChange={e => update("classicTitleY", +e.target.value)}/></label></>}
             <div className="color-row"><label className="color-control"><input type="color" value={settings.textColor} onChange={e => update("textColor", e.target.value)}/><span>Text & logo</span></label>{essentials && <label className="color-control"><input type="color" value={settings.bandColor} onChange={e => update("bandColor", e.target.value)}/><span>Band color</span></label>}</div>
             {essentials && <><label className="range-label">Title size<span>{settings.essentialsFontSize}px</span><input type="range" min="72" max="180" step="2" value={settings.essentialsFontSize} style={rangeProgress(settings.essentialsFontSize, 72, 180)} onChange={e => { const fontSize = +e.target.value; setSettings(s => ({ ...s, essentialsFontSize: fontSize, bandHeight: Math.max(s.bandHeight, s.corner.startsWith("bottom") ? Math.max(18, Math.ceil((fontSize + 40) / 12)) : 27) })); }}/></label><label className="range-label">Band height<span>{settings.bandHeight}%</span><input type="range" min={bandHeightMin} max="42" value={settings.bandHeight} style={rangeProgress(settings.bandHeight, bandHeightMin, 42)} onChange={e => update("bandHeight", +e.target.value)}/></label></>}
           </div>

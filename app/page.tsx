@@ -33,7 +33,7 @@ export default function Landing() {
     <header className={styles.navbar}>
       <nav aria-label="Main navigation">
         <Link href="/" className={styles.wordmark} aria-label="iCover home"><span className="brand-mark"><img src="/assets/brand/icover-icon.png" alt=""/></span>iCover<span className="studio-label">STUDIO</span></Link>
-        <div className={styles.navActions}><span>Playlist cover studio</span><a href="https://github.com/ismqo/iCover-Studio" target="_blank" rel="noreferrer" className={styles.navCta}><Github size={14}/>GitHub</a></div>
+        <div className={styles.navActions}><a href="https://github.com/ismqo/iCover-Studio" target="_blank" rel="noreferrer" className={styles.navCta}><Github size={14}/>GitHub</a></div>
       </nav>
     </header>
 
@@ -49,7 +49,6 @@ export default function Landing() {
         <h1 id="hero-title">For the love<br/>of your playlists.</h1>
         <p>You found the perfect songs.<br className={styles.mobileBreak}/> Now give them the perfect cover.</p>
         <Link href="/editor" className={styles.heroCta}>Create your cover <ArrowUpRight size={19}/></Link>
-        <span className={styles.freeNote}>Free to create. Yours to keep.</span>
       </section>
       <div className={styles.bottomBar}><span>YOUR MUSIC. YOUR ARTWORK.</span><button className={styles.motionButton} onClick={() => setPaused(p => !p)} aria-label={paused ? "Play cover animation" : "Pause cover animation"} aria-pressed={paused}>{paused ? <Play size={16} fill="currentColor"/> : <Pause size={16} fill="currentColor"/>}</button></div>
     </main>
