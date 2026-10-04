@@ -120,7 +120,8 @@ html,body{height:100%;overflow:hidden}
 }
 .app-shell .classic-thumb{color:#fff}
 .photo-frame-controls{margin-top:20px;padding:15px 16px 17px;border:1px solid #e5e5e9;border-radius:12px;background:#fafafa}
-.photo-frame-controls .field-label{margin:0 0 2px;color:#1d1d1f;font-weight:600}
+.photo-frame-controls .field-label{display:flex;align-items:center;justify-content:space-between;margin:0 0 2px;color:#1d1d1f;font-weight:600}
+.photo-frame-controls .icon-button{width:22px;height:22px;padding:0;color:#6e6e73}
 .photo-frame-controls .range-label{margin-top:13px}
 .photo-frame-controls .frame-toggle{margin:12px 0 0}
 .typography-alignment{margin-top:8px}
@@ -147,10 +148,13 @@ html[data-enter="editor"] .app-shell>main{animation:editorIn .5s ease both}
 .app-shell{transition:filter .45s ease}
 body:has(.download-reveal){background:#f5f5f7}
 body:has(.download-reveal:not(.is-leaving)) .app-shell{filter:blur(40px)}
-.download-reveal{position:fixed;inset:0;z-index:30;background:rgba(6,6,8,.86);animation:revealFade .4s ease both}
-.download-reveal.is-leaving{animation:revealFade .48s ease reverse forwards}
-.download-reveal.is-leaving .download-anchor{opacity:0;transform:translate(-50%,-50%) scale(.96);transition:opacity .4s ease,transform .4s ease}
-.download-anchor{position:absolute;left:50%;top:50%;width:var(--case-size);transform:translate(-50%,-50%)}
+.download-reveal{position:fixed;inset:0;z-index:30}
+.download-reveal:before{content:"";position:absolute;inset:0;background:rgba(6,6,8,.86);animation:revealFade .4s ease both}
+.download-reveal.is-leaving:before{animation:revealFade .55s ease .35s reverse forwards}
+.download-reveal.is-leaving .download-case{animation:coverBack .78s cubic-bezier(.55,0,.2,1) .32s both}
+.download-reveal.is-leaving .download-cd{animation:cdBack .55s cubic-bezier(.4,0,.2,1) both}
+.download-reveal.is-leaving .download-caption{animation:captionOut .32s ease both}
+.download-anchor{position:absolute;z-index:1;left:50%;top:50%;width:var(--case-size);transform:translate(-50%,-50%)}
 .download-case{position:relative;width:100%;aspect-ratio:1;animation:coverToCenter .78s cubic-bezier(.22,1,.36,1) both}
 .download-cd{position:absolute;z-index:0;top:8%;right:-24%;width:86%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 50% 50%,#101012 0 13.5%,#f4f4f6 14% 16.6%,#7d7d86 17% 18.6%,#f7f7f8 19.2% 33%,#c5c5cc 33% 34.2%,transparent 34.6%),conic-gradient(from 200deg,#eeeaf2,#d3e2f6 40deg,#f6e4cf 85deg,#e7d0ea 130deg,#d4ebe3 175deg,#f4efe6 220deg,#d9d4ef 265deg,#f0d6d2 310deg,#eeeaf2 360deg);box-shadow:inset 0 0 0 1px #ffffff66,0 14px 28px #00000066;animation:cdPeek .85s cubic-bezier(.16,1,.3,1) .72s both}
 .download-cd:after{content:"";position:absolute;inset:20%;border-radius:50%;background:radial-gradient(circle at 36% 30%,#ffffff80,transparent 48%);pointer-events:none}
@@ -158,7 +162,10 @@ body:has(.download-reveal:not(.is-leaving)) .app-shell{filter:blur(40px)}
 .download-caption{position:absolute;left:0;right:0;top:calc(100% + 28px);margin:0;text-align:center;color:#fff;font-size:26px;font-weight:500;letter-spacing:-.6px;animation:captionIn .4s ease 1.45s both}
 @keyframes revealFade{from{opacity:0}to{opacity:1}}
 @keyframes coverToCenter{from{transform:translate(var(--from-x),var(--from-y)) scale(var(--from-scale))}to{transform:none}}
+@keyframes coverBack{from{transform:none}to{transform:translate(var(--from-x),var(--from-y)) scale(var(--from-scale))}}
 @keyframes cdPeek{from{transform:translateX(-36%)}to{transform:none}}
+@keyframes cdBack{from{transform:none}to{transform:translateX(-36%)}}
 @keyframes captionIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-@media(max-width:650px){.download-anchor{transform:translate(calc(-50% - 12%),-50%)}.download-reveal.is-leaving .download-anchor{transform:translate(calc(-50% - 12%),-50%) scale(.96)}.download-caption{font-size:22px;top:calc(100% + 20px)}}
-@media(prefers-reduced-motion:reduce){.app-shell{transition:none}body:has(.download-reveal:not(.is-leaving)) .app-shell{filter:none}.download-reveal,.download-case,.download-cd,.download-caption{animation:none}.download-reveal.is-leaving{opacity:0}}
+@keyframes captionOut{from{opacity:1;transform:none}to{opacity:0;transform:translateY(8px)}}
+@media(max-width:650px){.download-anchor{transform:translate(calc(-50% - 12%),-50%)}.download-caption{font-size:22px;top:calc(100% + 20px)}}
+@media(prefers-reduced-motion:reduce){.app-shell{transition:none}body:has(.download-reveal:not(.is-leaving)) .app-shell{filter:none}.download-reveal:before,.download-case,.download-cd,.download-caption{animation:none}.download-reveal.is-leaving{opacity:0}}

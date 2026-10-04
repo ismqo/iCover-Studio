@@ -1582,8 +1582,18 @@ html, body {
 
 .photo-frame-controls .field-label {
   color: #1d1d1f;
+  justify-content: space-between;
+  align-items: center;
   margin: 0 0 2px;
   font-weight: 600;
+  display: flex;
+}
+
+.photo-frame-controls .icon-button {
+  color: #6e6e73;
+  width: 22px;
+  height: 22px;
+  padding: 0;
 }
 
 .photo-frame-controls .range-label {
@@ -1653,23 +1663,36 @@ body:has(.download-reveal:not(.is-leaving)) .app-shell {
 
 .download-reveal {
   z-index: 30;
-  background: #060608db;
-  animation: .4s both revealFade;
   position: fixed;
   inset: 0;
 }
 
-.download-reveal.is-leaving {
-  animation: .48s reverse forwards revealFade;
+.download-reveal:before {
+  content: "";
+  background: #060608db;
+  animation: .4s both revealFade;
+  position: absolute;
+  inset: 0;
 }
 
-.download-reveal.is-leaving .download-anchor {
-  opacity: 0;
-  transition: opacity .4s, transform .4s;
-  transform: translate(-50%, -50%)scale(.96);
+.download-reveal.is-leaving:before {
+  animation: .55s .35s reverse forwards revealFade;
+}
+
+.download-reveal.is-leaving .download-case {
+  animation: .78s cubic-bezier(.55, 0, .2, 1) .32s both coverBack;
+}
+
+.download-reveal.is-leaving .download-cd {
+  animation: .55s cubic-bezier(.4, 0, .2, 1) both cdBack;
+}
+
+.download-reveal.is-leaving .download-caption {
+  animation: .32s both captionOut;
 }
 
 .download-anchor {
+  z-index: 1;
   width: var(--case-size);
   position: absolute;
   top: 50%;
@@ -1751,6 +1774,16 @@ body:has(.download-reveal:not(.is-leaving)) .app-shell {
   }
 }
 
+@keyframes coverBack {
+  from {
+    transform: none;
+  }
+
+  to {
+    transform: translate(var(--from-x),var(--from-y)) scale(var(--from-scale));
+  }
+}
+
 @keyframes cdPeek {
   from {
     transform: translateX(-36%);
@@ -1758,6 +1791,16 @@ body:has(.download-reveal:not(.is-leaving)) .app-shell {
 
   to {
     transform: none;
+  }
+}
+
+@keyframes cdBack {
+  from {
+    transform: none;
+  }
+
+  to {
+    transform: translateX(-36%);
   }
 }
 
@@ -1773,13 +1816,21 @@ body:has(.download-reveal:not(.is-leaving)) .app-shell {
   }
 }
 
+@keyframes captionOut {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
 @media (max-width: 650px) {
   .download-anchor {
     transform: translate(-62%, -50%);
-  }
-
-  .download-reveal.is-leaving .download-anchor {
-    transform: translate(-62%, -50%)scale(.96);
   }
 
   .download-caption {
@@ -1797,7 +1848,7 @@ body:has(.download-reveal:not(.is-leaving)) .app-shell {
     filter: none;
   }
 
-  .download-reveal, .download-case, .download-cd, .download-caption {
+  .download-reveal:before, .download-case, .download-cd, .download-caption {
     animation: none;
   }
 

@@ -39,6 +39,11 @@ export default function Home() {
     }));
     setStatus("");
   };
+  const photoFrameChanged = settings.photoMargin !== defaults.photoMargin || settings.photoTopMargin !== defaults.photoTopMargin || settings.photoRadius !== defaults.photoRadius;
+  const resetPhotoFrame = () => {
+    setSettings(s => ({ ...s, photoMargin: defaults.photoMargin, photoTopMargin: defaults.photoTopMargin, photoRadius: defaults.photoRadius }));
+    setStatus("");
+  };
   const updateClassicFontSize = (key: "classicFontSize" | "classicSubtitleFontSize", value: number) => {
     setSettings(s => {
       const totalSize = key === "classicFontSize" ? value + s.classicSubtitleFontSize : s.classicFontSize + value;
@@ -124,6 +129,7 @@ export default function Home() {
   useEffect(() => {
     if (!handoff?.leaving) return;
     const { url, filename } = handoff;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const done = window.setTimeout(() => {
       const link = document.createElement("a");
       link.href = url;
@@ -131,7 +137,7 @@ export default function Home() {
       link.click();
       window.setTimeout(() => URL.revokeObjectURL(url), 10000);
       setHandoff(current => current?.url === url ? null : current);
-    }, 480);
+    }, reduced ? 200 : 1160);
     return () => clearTimeout(done);
   }, [handoff?.leaving, handoff?.url, handoff?.filename]);
 
@@ -185,7 +191,7 @@ export default function Home() {
             <input ref={fileInput} type="file" accept="image/jpeg,image/png,image/webp" className="hidden-input" aria-label="Upload cover photo" onChange={e => { void upload(e.target.files?.[0]); e.target.value = ""; }}/>
             <button className={`upload-zone ${dragging ? "dragging" : ""}`} onClick={() => fileInput.current?.click()} onDragOver={e => { e.preventDefault(); setDragging(true); }} onDragLeave={() => setDragging(false)} onDrop={e => { e.preventDefault(); setDragging(false); void upload(e.dataTransfer.files[0]); }}><ImagePlus size={23}/><strong>{uploading ? "Opening photo…" : photo ? "Replace your photo" : "Add your favorite photo"}</strong><span>Drop an image or click to browse</span><small>JPG, PNG, WebP · up to 20 MB</small></button>
             {photo && <div className="file-row"><span>{photoName}</span><button className="icon-button" aria-label="Remove photo" onClick={() => { uploadId.current++; setUploading(false); setPhoto(null); setPhotoName(""); }}><X size={14}/></button></div>}
-            <div className="photo-frame-controls"><div className="field-label">Photo frame</div><label className="range-label">Side & bottom margin<span>{settings.photoMargin}%</span><input type="range" min="0" max="12" step="1" value={settings.photoMargin} style={rangeProgress(settings.photoMargin, 0, 12)} onChange={e => updatePhotoFrame("photoMargin", +e.target.value)}/></label><label className="toggle-row compact frame-toggle"><span>Include top margin</span><input type="checkbox" role="switch" checked={settings.photoTopMargin} onChange={e => update("photoTopMargin", e.target.checked)}/></label><label className="range-label">Rounded corners<span>{settings.photoRadius}%</span><input type="range" min="0" max="10" step="1" value={settings.photoRadius} style={rangeProgress(settings.photoRadius, 0, 10)} onChange={e => updatePhotoFrame("photoRadius", +e.target.value)}/></label></div>
+            <div className="photo-frame-controls"><div className="field-label">Photo frame<button className="icon-button" title="Reset photo frame" aria-label="Reset photo frame" disabled={!photoFrameChanged} onClick={resetPhotoFrame}><RotateCcw size={14}/></button></div><label className="range-label">Side & bottom margin<span>{settings.photoMargin}%</span><input type="range" min="0" max="12" step="1" value={settings.photoMargin} style={rangeProgress(settings.photoMargin, 0, 12)} onChange={e => updatePhotoFrame("photoMargin", +e.target.value)}/></label><label className="toggle-row compact frame-toggle"><span>Include top margin</span><input type="checkbox" role="switch" checked={settings.photoTopMargin} onChange={e => update("photoTopMargin", e.target.checked)}/></label><label className="range-label">Rounded corners<span>{settings.photoRadius}%</span><input type="range" min="0" max="10" step="1" value={settings.photoRadius} style={rangeProgress(settings.photoRadius, 0, 10)} onChange={e => updatePhotoFrame("photoRadius", +e.target.value)}/></label></div>
             <div className="field-label">Photo treatment</div><div className="segmented treatments">{([['original','Original'],['mono','Mono'],['duotone','Duotone']] as const).map(([value,label]) => <button key={value} aria-pressed={settings.treatment === value} className={settings.treatment === value ? "active" : ""} onClick={() => update("treatment", value)}>{label}</button>)}</div>
             {settings.treatment === "duotone" && <div className="tint-row">{tintColors.map(color => <button key={color} className={`tint ${settings.tint === color ? "active" : ""}`} style={{ background: color }} aria-label={`Duotone ${color}`} aria-pressed={settings.tint === color} onClick={() => update("tint", color)}/>)}<label className="custom-tint"><input aria-label="Custom duotone color" type="color" value={settings.tint} onChange={e => update("tint", e.target.value)}/></label></div>}
             {photo ? <div className="crop-controls"><label className="range-label">Zoom<span>{settings.zoom.toFixed(1)}×</span><input type="range" min="1" max="3" step="0.05" value={settings.zoom} style={rangeProgress(settings.zoom, 1, 3)} onChange={e => update("zoom", +e.target.value)}/></label><label className="range-label">Horizontal position<span>{settings.offsetX}%</span><input type="range" min="0" max="100" value={settings.offsetX} style={rangeProgress(settings.offsetX, 0, 100)} onChange={e => update("offsetX", +e.target.value)}/></label><label className="range-label">Vertical position<span>{settings.offsetY}%</span><input type="range" min="0" max="100" value={settings.offsetY} style={rangeProgress(settings.offsetY, 0, 100)} onChange={e => update("offsetY", +e.target.value)}/></label></div> : <p className="help-text">Add a photo to apply treatments and adjust its crop.</p>}
