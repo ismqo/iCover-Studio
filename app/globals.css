@@ -110,14 +110,16 @@ html,body{height:100%;overflow:hidden}
 @media(max-width:850px) and (min-width:651px){.app-shell .workspace{gap:20px}.app-shell .controls{padding:20px 15px}.app-shell .style-option{padding:10px 7px}.app-shell .preview-stage{padding:12px 22px 22px}.app-shell .preview-download{padding:0 22px 22px}}
 @media(max-width:650px){
  .app-shell .app-header{height:60px}.editor-nav{padding:0 16px;gap:8px}.app-shell .brand{font-size:23px;gap:4px}.studio-label{font-size:8px;padding:4px 6px;margin-left:4px}.editor-nav-caption{display:none}
- .app-shell>main{padding:0 12px}.app-shell .intro{display:none}.app-shell .workspace{gap:8px;padding-top:8px;padding-bottom:env(safe-area-inset-bottom)}
- .app-shell .preview-panel,.app-shell .controls{border-radius:16px}.app-shell .section-top{padding:8px 14px}.app-shell .preview-stage{padding:0 14px 10px}.app-shell .preview-stage canvas{width:min(100%,clamp(190px,30dvh,260px))}
+ .app-shell>main{padding:0 12px}.app-shell .intro{display:none}.app-shell .workspace{gap:8px;padding-top:8px;padding-bottom:calc(12px + env(safe-area-inset-bottom))}
+ .app-shell .preview-panel,.app-shell .controls{border-radius:16px}.app-shell .preview-panel{position:relative}.app-shell .section-top{position:absolute;z-index:2;top:10px;left:10px;right:auto;padding:0}.app-shell .section-top>span{display:none}.app-shell .section-top .icon-button{width:32px;height:32px;padding:0;border:0;background:transparent;color:#6e6e73}
+ .app-shell .preview-stage{padding:10px 14px}.app-shell .preview-stage canvas{width:min(100%,clamp(190px,30dvh,260px))}
  .app-shell .download{font-size:11px;padding:10px 12px;gap:6px}.app-shell .controls{padding:18px 15px 24px}.app-shell .preview-download{display:none}
 }
 .app-shell .classic-thumb{color:#fff}
 .photo-frame-controls{margin-top:20px;padding:15px 16px 17px;border:1px solid #e5e5e9;border-radius:12px;background:#fafafa}
 .photo-frame-controls .field-label{margin:0 0 2px;color:#1d1d1f;font-weight:600}
 .photo-frame-controls .range-label{margin-top:13px}
+.photo-frame-controls .frame-toggle{margin:12px 0 0}
 
 /* Interactive cards use the same border feedback as the text fields. */
 .app-shell .style-option:hover:not(:disabled),

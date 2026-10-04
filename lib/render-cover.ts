@@ -8,7 +8,7 @@ export type CoverSettings = {
   gradient: number; color: number; customColor: string;
   textColor: string; bandColor: string; bandHeight: number; essentialsFontSize: number;
   treatment: "original" | "mono" | "duotone"; tint: string;
-  photoMargin: number; photoRadius: number;
+  photoMargin: number; photoTopMargin: boolean; photoRadius: number;
   zoom: number; offsetX: number; offsetY: number;
 };
 
@@ -17,7 +17,7 @@ export const defaults: CoverSettings = {
   essentialsTitle: "Essentials", showLogo: true, corner: "top-left",
   backgroundType: "gradients", gradient: 0, color: 0, customColor: "#7865a8",
   textColor: "#ffffff", bandColor: "#c4c4c4", bandHeight: 31, essentialsFontSize: 148,
-  treatment: "mono", tint: "#b8b0da", photoMargin: 5, photoRadius: 3,
+  treatment: "mono", tint: "#b8b0da", photoMargin: 0, photoTopMargin: false, photoRadius: 0,
   zoom: 1, offsetX: 50, offsetY: 50,
 };
 
@@ -74,9 +74,9 @@ export async function renderCover(canvas: HTMLCanvasElement, s: CoverSettings, p
   if (s.mode === "essentials") {
     const inset = Math.round(size * s.photoMargin / 100);
     const photoX = inset;
-    const photoY = band;
+    const photoY = band + (s.photoTopMargin ? inset : 0);
     const photoWidth = size - inset * 2;
-    const photoHeight = size - band - inset;
+    const photoHeight = size - photoY - inset;
     const photoRadius = Math.round(size * s.photoRadius / 100);
     ctx.fillStyle = s.bandColor;
     ctx.fillRect(0, 0, size, size);
@@ -126,11 +126,14 @@ export async function renderCover(canvas: HTMLCanvasElement, s: CoverSettings, p
     ctx.globalAlpha = 1;
   }
   if (s.showLogo) {
+    const logoCorner = s.mode === "essentials" && (s.photoMargin > 0 || s.photoRadius > 0) && s.corner.startsWith("bottom")
+      ? (s.corner === "bottom-left" ? "top-left" : "top-right")
+      : s.corner;
     const w = s.mode === "essentials" ? 260 : 240;
     const h = w * 20.7 / 84.3;
     const padding = s.mode === "essentials" ? 48 : 100;
-    const x = s.corner.endsWith("right") ? size - padding - w : padding;
-    const y = s.corner.startsWith("bottom") ? size - 48 - h : 48;
+    const x = logoCorner.endsWith("right") ? size - padding - w : padding;
+    const y = logoCorner.startsWith("bottom") ? size - 48 - h : 48;
     ctx.save(); ctx.translate(x, y); ctx.scale(w / 84.3, h / 20.7);
     ctx.fillStyle = s.textColor; ctx.fill(new Path2D(APPLE_MUSIC_PATH)); ctx.restore();
   }
