@@ -105,12 +105,12 @@ const dictionaries = {
             body: "You found the perfect songs.",
             bodyRest: "Now give them the perfect cover.",
             cta: "Create your cover",
-            caption: "YOUR MUSIC. YOUR ARTWORK.",
+            caption: "YOUR MUSIC. YOUR ARTWORK. 2026 iCover Studio.",
             play: "Play cover animation",
             pause: "Pause cover animation"
         },
         editor: {
-            caption: "YOUR MUSIC. YOUR ARTWORK.",
+            caption: "YOUR MUSIC. YOUR ARTWORK. 2026 iCover Studio.",
             livePreview: "LIVE PREVIEW",
             coverPreview: "Cover preview",
             coverPreviewNamed: (title)=>`${title} cover preview`,
@@ -217,12 +217,12 @@ const dictionaries = {
             body: "Encontraste las canciones perfectas.",
             bodyRest: "Ahora dales el cover perfecto.",
             cta: "Crea tu cover",
-            caption: "YOUR MUSIC. YOUR ARTWORK.",
+            caption: "YOUR MUSIC. YOUR ARTWORK. 2026 iCover Studio.",
             play: "Reproducir animación del cover",
             pause: "Pausar animación del cover"
         },
         editor: {
-            caption: "YOUR MUSIC. YOUR ARTWORK.",
+            caption: "YOUR MUSIC. YOUR ARTWORK. 2026 iCover Studio.",
             livePreview: "LIVE PREVIEW",
             coverPreview: "Vista previa del cover",
             coverPreviewNamed: (title)=>`Vista previa de ${title}`,

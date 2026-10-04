@@ -1,53 +1,20 @@
-{"timestamp":"00:00:00.698","source":"Server","level":"LOG","message":""}
-{"timestamp":"00:00:03.003","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
-{"timestamp":"00:03:12.543","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
-{"timestamp":"00:06:09.076","source":"Server","level":"WARN","message":"⚠ Fast Refresh had to perform a full reload when ./lib/i18n.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload"}
-{"timestamp":"00:06:09.132","source":"Server","level":"LOG","message":"✓ Compiled in 9ms"}
-{"timestamp":"00:06:09.280","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
-{"timestamp":"00:06:16.819","source":"Server","level":"WARN","message":"⚠ Fast Refresh had to perform a full reload when ./lib/i18n.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload"}
-{"timestamp":"00:06:16.858","source":"Server","level":"LOG","message":"✓ Compiled in 7ms"}
-{"timestamp":"00:06:16.934","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
-{"timestamp":"00:06:19.281","source":"Server","level":"LOG","message":"✓ Compiled in 27ms"}
-{"timestamp":"00:06:19.339","source":"Browser","level":"ERROR","message":"./lib/i18n.ts:269:5\nError: Return statement is not allowed here\n  267 |     return navigator.language.toLowerCase().startsWith(\"es\") ? \"es\" : \"en\";\n  268 |   } catch {\n> 269 |     return \"en\";\n      |     ^^^^^^^^^^^^\n  270 |   }\n  271 | }\n  272 |\n\nParsing ecmascript source code failed\n\nImport traces:\n  Client Component Browser:\n    ./lib/i18n.ts [Client Component Browser]\n    ./components/locale-provider.tsx [Client Component Browser]\n    ./components/locale-provider.tsx [Server Component]\n    ./app/layout.tsx [Server Component]\n\n  Client Component SSR:\n    ./lib/i18n.ts [Client Component SSR]\n    ./components/locale-provider.tsx [Client Component SSR]\n    ./components/locale-provider.tsx [Server Component]\n    ./app/layout.tsx [Server Component] "}
-{"timestamp":"00:06:19.339","source":"Server","level":"ERROR","message":"[browser] \"./lib/i18n.ts:269:5\\nError: Return statement is not allowed here\\n  267 |     return navigator.language.toLowerCase().startsWith(\\\"es\\\") ? \\\"es\\\" : \\\"en\\\";\\n  268 |   } catch {\\n> 269 |     return \\\"en\\\";\\n      |     ^^^^^^^^^^^^\\n  270 |   }\\n  271 | }\\n  272 |\\n\\nParsing ecmascript source code failed\\n\\nImport traces:\\n  Client Component Browser:\\n    ./lib/i18n.ts [Client Component Browser]\\n    ./components/locale-provider.tsx [Client Component Browser]\\n    ./components/locale-provider.tsx [Server Component]\\n    ./app/layout.tsx [Server Component]\\n\\n  Client Component SSR:\\n    ./lib/i18n.ts [Client Component SSR]\\n    ./components/locale-provider.tsx [Client Component SSR]\\n    ./components/locale-provider.tsx [Server Component]\\n    ./app/layout.tsx [Server Component]\" \"\""}
-{"timestamp":"00:06:19.373","source":"Browser","level":"ERROR","message":"./lib/i18n.ts:269:5\nError: Return statement is not allowed here\n  267 |     return navigator.language.toLowerCase().startsWith(\"es\") ? \"es\" : \"en\";\n  268 |   } catch {\n> 269 |     return \"en\";\n      |     ^^^^^^^^^^^^\n  270 |   }\n  271 | }\n  272 |\n\nParsing ecmascript source code failed\n\nImport traces:\n  Client Component Browser:\n    ./lib/i18n.ts [Client Component Browser]\n    ./components/locale-provider.tsx [Client Component Browser]\n    ./components/locale-provider.tsx [Server Component]\n    ./app/layout.tsx [Server Component]\n\n  Client Component SSR:\n    ./lib/i18n.ts [Client Component SSR]\n    ./components/locale-provider.tsx [Client Component SSR]\n    ./components/locale-provider.tsx [Server Component]\n    ./app/layout.tsx [Server Component] "}
-{"timestamp":"00:06:19.373","source":"Server","level":"ERROR","message":"[browser] \"./lib/i18n.ts:269:5\\nError: Return statement is not allowed here\\n  267 |     return navigator.language.toLowerCase().startsWith(\\\"es\\\") ? \\\"es\\\" : \\\"en\\\";\\n  268 |   } catch {\\n> 269 |     return \\\"en\\\";\\n      |     ^^^^^^^^^^^^\\n  270 |   }\\n  271 | }\\n  272 |\\n\\nParsing ecmascript source code failed\\n\\nImport traces:\\n  Client Component Browser:\\n    ./lib/i18n.ts [Client Component Browser]\\n    ./components/locale-provider.tsx [Client Component Browser]\\n    ./components/locale-provider.tsx [Server Component]\\n    ./app/layout.tsx [Server Component]\\n\\n  Client Component SSR:\\n    ./lib/i18n.ts [Client Component SSR]\\n    ./components/locale-provider.tsx [Client Component SSR]\\n    ./components/locale-provider.tsx [Server Component]\\n    ./app/layout.tsx [Server Component]\" \"\""}
-{"timestamp":"00:06:39.466","source":"Server","level":"WARN","message":"⚠ Fast Refresh had to perform a full reload when ./lib/i18n.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload"}
-{"timestamp":"00:06:39.585","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
-{"timestamp":"00:06:39.915","source":"Server","level":"LOG","message":"✓ Compiled in 18ms"}
-{"timestamp":"00:06:40.637","source":"Server","level":"LOG","message":"✓ Compiled in 26ms"}
-{"timestamp":"00:06:42.145","source":"Server","level":"LOG","message":"✓ Compiled in 36ms"}
-{"timestamp":"00:06:47.035","source":"Server","level":"LOG","message":"✓ Compiled in 31ms"}
-{"timestamp":"00:06:47.595","source":"Server","level":"LOG","message":"✓ Compiled in 27ms"}
-{"timestamp":"00:06:48.310","source":"Server","level":"LOG","message":"✓ Compiled in 22ms"}
-{"timestamp":"00:06:48.962","source":"Server","level":"LOG","message":"✓ Compiled in 19ms"}
-{"timestamp":"00:06:49.602","source":"Server","level":"LOG","message":"✓ Compiled in 21ms"}
-{"timestamp":"00:07:16.980","source":"Server","level":"WARN","message":"⚠ Fast Refresh had to perform a full reload when ./lib/i18n.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload"}
-{"timestamp":"00:07:17.039","source":"Server","level":"LOG","message":"✓ Compiled in 19ms"}
-{"timestamp":"00:07:17.116","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
-{"timestamp":"00:07:29.481","source":"Server","level":"WARN","message":"⚠ Fast Refresh had to perform a full reload when ./lib/i18n.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload"}
-{"timestamp":"00:07:29.536","source":"Server","level":"LOG","message":"✓ Compiled in 7ms"}
-{"timestamp":"00:07:29.626","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
-{"timestamp":"00:07:30.454","source":"Server","level":"WARN","message":"⚠ Fast Refresh had to perform a full reload when ./lib/i18n.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload"}
-{"timestamp":"00:07:30.511","source":"Server","level":"LOG","message":"✓ Compiled in 7ms"}
-{"timestamp":"00:07:30.565","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
-{"timestamp":"00:07:31.490","source":"Server","level":"LOG","message":"✓ Compiled in 8ms"}
-{"timestamp":"00:07:40.866","source":"Server","level":"WARN","message":"⚠ Fast Refresh had to perform a full reload when ./lib/i18n.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload"}
-{"timestamp":"00:07:40.924","source":"Server","level":"LOG","message":"✓ Compiled in 9ms"}
-{"timestamp":"00:07:40.987","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
-{"timestamp":"00:07:55.414","source":"Server","level":"LOG","message":"✓ Compiled in 23ms"}
-{"timestamp":"00:08:11.033","source":"Server","level":"WARN","message":"⚠ Fast Refresh had to perform a full reload when ./lib/i18n.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload"}
-{"timestamp":"00:08:11.121","source":"Server","level":"LOG","message":"✓ Compiled in 9ms"}
-{"timestamp":"00:08:11.199","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
-{"timestamp":"00:08:46.493","source":"Server","level":"LOG","message":"✓ Compiled in 10ms"}
-{"timestamp":"00:08:47.839","source":"Server","level":"LOG","message":"✓ Compiled in 23ms"}
-{"timestamp":"00:09:10.363","source":"Server","level":"LOG","message":"✓ Compiled in 8ms"}
-{"timestamp":"00:09:20.207","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
-{"timestamp":"00:12:15.793","source":"Server","level":"LOG","message":"✓ Compiled in 13ms"}
-{"timestamp":"00:12:16.153","source":"Server","level":"LOG","message":"✓ Compiled in 7ms"}
-{"timestamp":"00:12:16.669","source":"Server","level":"LOG","message":"✓ Compiled in 20ms"}
-{"timestamp":"00:12:36.734","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
-{"timestamp":"00:13:27.073","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
-{"timestamp":"00:14:01.938","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
-{"timestamp":"00:14:11.542","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
-{"timestamp":"00:15:30.644","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"00:00:00.669","source":"Server","level":"LOG","message":""}
+{"timestamp":"00:00:02.194","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"00:00:08.171","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"00:00:44.168","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"00:01:31.493","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"00:02:06.625","source":"Server","level":"LOG","message":"✓ Compiled in 11ms"}
+{"timestamp":"00:02:27.469","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"00:02:59.488","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"00:03:01.131","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"00:04:33.415","source":"Server","level":"WARN","message":"⚠ Fast Refresh had to perform a full reload when ./lib/i18n.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload"}
+{"timestamp":"00:04:33.462","source":"Server","level":"WARN","message":"⚠ Fast Refresh had to perform a full reload when ./lib/i18n.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload"}
+{"timestamp":"00:04:33.500","source":"Server","level":"LOG","message":"✓ Compiled in 63ms"}
+{"timestamp":"00:04:33.637","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"00:05:16.316","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"00:06:56.883","source":"Server","level":"LOG","message":"✓ Compiled in 27ms"}
+{"timestamp":"00:09:19.888","source":"Server","level":"LOG","message":"✓ Compiled in 33ms"}
+{"timestamp":"00:09:34.535","source":"Server","level":"LOG","message":"✓ Compiled in 10ms"}
+{"timestamp":"00:10:03.716","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}
+{"timestamp":"00:11:03.262","source":"Server","level":"LOG","message":"✓ Compiled in 24ms"}
+{"timestamp":"00:11:30.287","source":"Browser","level":"INFO","message":"Download the React DevTools for a better development experience: https://react.dev/link/react-devtools"}

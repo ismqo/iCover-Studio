@@ -171,9 +171,7 @@ export default function Home() {
       <nav className="editor-nav" aria-label={t.nav.main}>
       <a href="/" className="brand" aria-label={t.nav.home}><span className="brand-mark"><img src="/assets/brand/icover-icon.png" alt=""/></span>iCover<span className="studio-label">STUDIO</span></a>
       <div className="editor-nav-actions">
-        <span className="editor-nav-caption">{copy.caption}</span>
         <NavMenu />
-        <button className="download mobile-download" onClick={download} disabled={exporting || rendering || uploading || !!handoff}><ArrowDownToLine size={16}/>{exporting ? copy.exporting : copy.download}</button>
       </div>
       </nav>
     </header>
@@ -182,11 +180,12 @@ export default function Home() {
       <div className="workspace">
         <div className="preview-column">
         <section className="preview-panel" aria-label={copy.coverPreview}>
-          <div className="section-top"><span><span className="live-dot"/> {copy.livePreview}</span><button className="icon-button" onClick={reset} title={copy.resetCover} aria-label={copy.resetCover}><RotateCcw size={15}/></button></div>
+          <div className="section-top"><span><span className="live-dot"/> {copy.livePreview}</span><div className="preview-actions"><button className="icon-button" onClick={reset} title={copy.resetCover} aria-label={copy.resetCover}><RotateCcw size={15}/></button></div></div>
           <div className="preview-stage"><canvas ref={canvas} width="1200" height="1200" aria-label={copy.coverPreviewNamed(essentials ? settings.essentialsTitle : settings.title)} role="img"/></div>
+          <button className="download mobile-preview-download" onClick={download} disabled={exporting || rendering || uploading || !!handoff} aria-label={exporting ? copy.exporting : copy.download} title={exporting ? copy.exporting : copy.download}><ArrowDownToLine size={16}/><span>{exporting ? copy.exporting : copy.download}</span></button>
           <div className="preview-download"><button className="download" onClick={download} disabled={exporting || rendering || uploading || !!handoff}><ArrowDownToLine size={16}/>{exporting ? copy.exporting : copy.download}</button></div>
         </section>
-        <p className="preview-credit">2026 iCover Studio.</p>
+        <p className="preview-credit">{copy.caption}</p>
         </div>
 
         <section className="controls" aria-label={copy.coverSettings} tabIndex={0}>

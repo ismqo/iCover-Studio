@@ -4,8 +4,6 @@
 .wordmark{display:flex;align-items:center;gap:6px;font-size:25px;font-weight:600;letter-spacing:-1px}
 .navActions{display:flex;align-items:center;gap:12px;font-size:12px}
 .navActions>span{color:#646469}
-.navCta{background:#fa233b;border-radius:30px;padding:9px 17px;font-size:12px;color:#fff;font-weight:600;display:inline-flex;align-items:center;gap:7px}
-.navCta:hover{background:#e71c33}
 .hero{min-height:740px;height:calc(100dvh - 64px);position:relative;overflow:hidden;isolation:isolate;display:grid;place-items:center;background:#0c0911}
 .wall{position:absolute;inset:-25% -8%;display:flex;justify-content:center;gap:var(--tile-gap);transform:rotate(-9deg) scale(1.08);z-index:-3;pointer-events:none}
 .column{width:var(--tile);flex:0 0 var(--tile);height:max-content;animation:rise calc(65s + var(--column)*7s) linear infinite;animation-delay:calc(var(--column)*-13s);will-change:transform}

@@ -64,6 +64,15 @@ export function NavMenu() {
               <button type="button" role="radio" aria-checked={locale === "es"} aria-label={t.nav.spanish} onClick={() => chooseLocale("es")}>ES</button>
             </div>
           </div>
+          <a
+            className="nav-menu-link"
+            href="https://github.com/ismqo/iCover-Studio"
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => setOpen(false)}
+          >
+            GitHub
+          </a>
         </div>
       )}
     </div>

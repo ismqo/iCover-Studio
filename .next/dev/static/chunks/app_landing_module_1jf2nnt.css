@@ -50,22 +50,6 @@
   color: #646469;
 }
 
-.landing-module__jDH3nq__navCta {
-  color: #fff;
-  background: #fa233b;
-  border-radius: 30px;
-  align-items: center;
-  gap: 7px;
-  padding: 9px 17px;
-  font-size: 12px;
-  font-weight: 600;
-  display: inline-flex;
-}
-
-.landing-module__jDH3nq__navCta:hover {
-  background: #e71c33;
-}
-
 .landing-module__jDH3nq__hero {
   isolation: isolate;
   background: #0c0911;
