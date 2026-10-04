@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { ArrowUpRight, Github, Music2, Pause, Play } from "lucide-react";
+import { ArrowUpRight, Github, Pause, Play } from "lucide-react";
 import { APPLE_MUSIC_PATH } from "@/lib/apple-logo";
 import styles from "./landing.module.css";
 
@@ -32,7 +32,7 @@ export default function Landing() {
   return <div className={styles.landing}>
     <header className={styles.navbar}>
       <nav aria-label="Main navigation">
-        <Link href="/" className={styles.wordmark} aria-label="iCover home"><Music2 size={23} strokeWidth={2.3}/>iCover<span className="studio-label">STUDIO</span></Link>
+        <Link href="/" className={styles.wordmark} aria-label="iCover home"><span className="brand-mark"><img src="/assets/brand/icover-icon.png" alt=""/></span>iCover<span className="studio-label">STUDIO</span></Link>
         <div className={styles.navActions}><span>Playlist cover studio</span><a href="https://github.com/ismqo/iCover-Studio" target="_blank" rel="noreferrer" className={styles.navCta}><Github size={14}/>GitHub</a></div>
       </nav>
     </header>
@@ -45,7 +45,7 @@ export default function Landing() {
       </div>
       <div className={styles.shade}/>
       <section className={styles.heroContent} aria-labelledby="hero-title">
-        <div className={styles.heroBrand}><Music2 size={32}/>iCover</div>
+        <div className={styles.heroBrand}><span className="brand-mark brand-mark-hero"><img src="/assets/brand/icover-icon.png" alt=""/></span>iCover</div>
         <h1 id="hero-title">For the love<br/>of your playlists.</h1>
         <p>You found the perfect songs.<br className={styles.mobileBreak}/> Now give them the perfect cover.</p>
         <Link href="/editor" className={styles.heroCta}>Create your cover <ArrowUpRight size={19}/></Link>

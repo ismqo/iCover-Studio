@@ -101,7 +101,7 @@ export default function Home() {
   return <div className="app-shell">
     <header className="app-header">
       <nav className="editor-nav" aria-label="Main navigation">
-      <a href="/" className="brand" aria-label="iCover home"><Music2 size={23} strokeWidth={2.3}/>iCover<span className="studio-label">STUDIO</span></a>
+      <a href="/" className="brand" aria-label="iCover home"><span className="brand-mark"><img src="/assets/brand/icover-icon.png" alt=""/></span>iCover<span className="studio-label">STUDIO</span></a>
       <span className="editor-nav-caption">Playlist cover studio</span>
       <button className="download mobile-download" onClick={download} disabled={exporting || rendering || uploading}><ArrowDownToLine size={16}/>{exporting ? "Exporting…" : "Download cover"}</button>
       </nav>
