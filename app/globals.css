@@ -129,6 +129,10 @@ html,body{height:100%;overflow:hidden}
 .photo-frame-controls .icon-button{width:22px;height:22px;padding:0;color:#6e6e73}
 .photo-frame-controls .range-label{margin-top:13px}
 .photo-frame-controls .frame-toggle{margin:12px 0 0}
+.segmented ~ .upload-zone{margin-top:20px}
+.photo-treatment-label{display:flex;align-items:center;justify-content:space-between}
+.photo-treatment-label .icon-button{width:22px;height:22px;padding:0;color:#6e6e73}
+.photo-tone-controls{margin-top:12px}
 .typography-alignment{margin-top:8px}
 .title-size-range{margin:0 0 2px}
 .weight-label{margin:0}
@@ -267,4 +271,5 @@ html[data-theme="dark"] .app-shell .toast{background:#2c2c2e;color:#f5f5f7;borde
 html[data-theme="dark"] .app-shell .toast.error{background:#3a2024;border-color:#fa233b80}
 html[data-theme="dark"] .photo-frame-controls{background:#2c2c2e;border-color:#3a3a3c}
 html[data-theme="dark"] .photo-frame-controls .icon-button,
+html[data-theme="dark"] .photo-treatment-label .icon-button,
 html[data-theme="dark"] .app-shell .section-top .icon-button{color:#98989d}

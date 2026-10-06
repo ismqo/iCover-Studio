@@ -11,6 +11,7 @@ export type CoverSettings = {
   gradient: number; color: number; customColor: string;
   textColor: string; bandColor: string; bandHeight: number; essentialsFontSize: number;
   treatment: "original" | "mono" | "duotone"; tint: string;
+  brightness: number; contrast: number;
   photoMargin: number; photoTopMargin: boolean; photoRadius: number;
   zoom: number; offsetX: number; offsetY: number;
 };
@@ -22,7 +23,7 @@ export const defaults: CoverSettings = {
   essentialsTitle: "Essentials", showLogo: true, corner: "top-left",
   backgroundType: "gradients", gradient: 0, color: 0, customColor: "#7865a8",
   textColor: "#ffffff", bandColor: "#c4c4c4", bandHeight: 31, essentialsFontSize: 136,
-  treatment: "original", tint: "#e8e8ed", photoMargin: 0, photoTopMargin: false, photoRadius: 0,
+  treatment: "original", tint: "#e8e8ed", brightness: 0, contrast: 0, photoMargin: 0, photoTopMargin: false, photoRadius: 0,
   zoom: 1, offsetX: 50, offsetY: 50,
 };
 
@@ -81,12 +82,28 @@ function drawPhoto(
     const scale = Math.max(photoWidth / uploaded.width, photoHeight / uploaded.height) * s.zoom;
     const w = uploaded.width * scale, h = uploaded.height * scale;
     photoCtx.drawImage(uploaded, (photoWidth - w) * s.offsetX / 100, (photoHeight - h) * s.offsetY / 100, w, h);
-    if (s.treatment !== "original") {
+    const adjustTone = s.brightness !== 0 || s.contrast !== 0;
+    if (s.treatment !== "original" || adjustTone) {
       const pixels = photoCtx.getImageData(0, 0, photoWidth, photoHeight);
       const tint = s.treatment === "mono" ? [255, 255, 255] : [1, 3, 5].map(i => parseInt(s.tint.slice(i, i + 2), 16));
+      const contrast = (s.contrast + 100) / 100;
+      const brightness = s.brightness * 2.55;
+      const tone = (value: number) => Math.max(0, Math.min(255, (value - 127.5) * contrast + 127.5 + brightness));
       for (let i = 0; i < pixels.data.length; i += 4) {
-        const luma = (pixels.data[i] * .2126 + pixels.data[i+1] * .7152 + pixels.data[i+2] * .0722) / 255;
-        for (let c = 0; c < 3; c++) pixels.data[i+c] = Math.round(tint[c] * luma);
+        let r = pixels.data[i], g = pixels.data[i + 1], b = pixels.data[i + 2];
+        if (adjustTone) {
+          r = tone(r);
+          g = tone(g);
+          b = tone(b);
+        }
+        if (s.treatment !== "original") {
+          const luma = (r * .2126 + g * .7152 + b * .0722) / 255;
+          for (let c = 0; c < 3; c++) pixels.data[i + c] = Math.round(tint[c] * luma);
+        } else {
+          pixels.data[i] = r;
+          pixels.data[i + 1] = g;
+          pixels.data[i + 2] = b;
+        }
       }
       photoCtx.putImageData(pixels, 0, 0);
     }
@@ -137,13 +154,7 @@ export async function renderCover(canvas: HTMLCanvasElement, s: CoverSettings, p
     text(ctx, s.essentialsTitle, 48, Math.max(28, band - s.essentialsFontSize - 20), s.essentialsFontSize, 600, 1104);
   } else {
     if (s.backgroundType === "picture") {
-      const inset = Math.round(size * s.photoMargin / 100);
-      const photoX = inset;
-      const photoY = s.photoTopMargin ? inset : 0;
-      const photoWidth = size - inset * 2;
-      const photoHeight = size - photoY - inset;
-      const photoRadius = Math.round(size * s.photoRadius / 100);
-      drawPhoto(ctx, uploaded, s, photoX, photoY, photoWidth, photoHeight, photoRadius);
+      drawPhoto(ctx, uploaded, s, 0, 0, size, size, 0);
     }
     ctx.fillStyle = s.textColor;
     ctx.textAlign = s.classicAlign;
@@ -158,7 +169,7 @@ export async function renderCover(canvas: HTMLCanvasElement, s: CoverSettings, p
     ctx.globalAlpha = 1;
   }
   if (s.showLogo) {
-    const framedPhoto = (s.mode === "essentials" || s.backgroundType === "picture") && (s.photoMargin > 0 || s.photoRadius > 0);
+    const framedPhoto = s.mode === "essentials" && (s.photoMargin > 0 || s.photoRadius > 0);
     const logoCorner = framedPhoto && s.corner.startsWith("bottom")
       ? (s.corner === "bottom-left" ? "top-left" : "top-right")
       : s.corner;
