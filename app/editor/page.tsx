@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type RefObject } from "react";
 import { ArrowDownToLine, Check, ImagePlus, Music2, RotateCcw, X } from "lucide-react";
 import { NavMenu } from "@/components/nav-menu";
 import { useI18n } from "@/components/locale-provider";
 import { CoverSettings, defaults, loadImage, releaseImage, renderCover } from "@/lib/render-cover";
-import { localizeCoverSamples, type NoticeKey } from "@/lib/i18n";
+import { localizeCoverSamples, type Dictionary, type NoticeKey } from "@/lib/i18n";
 
 const corners = ["top-left", "top-right", "bottom-left", "bottom-right"] as const;
 const tintColors = ["#e8e8ed", "#efa1ad", "#8bc8b3", "#e9bb75", "#8ebde7", "#ffffff"];
@@ -35,7 +35,8 @@ export default function Home() {
   const fileInput = useRef<HTMLInputElement>(null);
   const uploadId = useRef(0);
   const essentials = settings.mode === "essentials";
-  const bottomLogoUnavailable = essentials && (settings.photoMargin > 0 || settings.photoRadius > 0);
+  const pictureBackground = settings.backgroundType === "picture";
+  const bottomLogoUnavailable = (essentials || pictureBackground) && (settings.photoMargin > 0 || settings.photoRadius > 0);
   const bandHeightMin = settings.corner.startsWith("bottom") ? Math.max(18, Math.ceil((settings.essentialsFontSize + 40) / 12)) : 27;
   const classicTitleYMax = Math.max(15, Math.floor((900 - settings.classicFontSize - settings.classicSubtitleFontSize) / 12));
   const update = <K extends keyof CoverSettings>(key: K, value: CoverSettings[K]) => {
@@ -78,10 +79,10 @@ export default function Home() {
   }, [settings, photo]);
 
   useEffect(() => {
-    if (essentials && bottomLogoUnavailable && settings.corner.startsWith("bottom")) {
+    if (bottomLogoUnavailable && settings.corner.startsWith("bottom")) {
       setSettings(s => ({ ...s, corner: s.corner === "bottom-left" ? "top-left" : "top-right" }));
     }
-  }, [bottomLogoUnavailable, essentials, settings.corner]);
+  }, [bottomLogoUnavailable, settings.corner]);
 
   useEffect(() => () => { if (photo) releaseImage(photo); }, [photo]);
 
@@ -203,23 +204,17 @@ export default function Home() {
           </div>
 
           {essentials && <div className="control-section"><div className="section-heading"><h2>{copy.yourPhoto}</h2></div>
-            <input ref={fileInput} type="file" accept="image/jpeg,image/png,image/webp" className="hidden-input" aria-label={copy.uploadPhoto} onChange={e => { void upload(e.target.files?.[0]); e.target.value = ""; }}/>
-            <button className={`upload-zone ${dragging ? "dragging" : ""}`} onClick={() => fileInput.current?.click()} onDragOver={e => { e.preventDefault(); setDragging(true); }} onDragLeave={() => setDragging(false)} onDrop={e => { e.preventDefault(); setDragging(false); void upload(e.dataTransfer.files[0]); }}><ImagePlus size={23}/><strong>{uploading ? copy.openingPhoto : photo ? copy.replacePhoto : copy.addPhoto}</strong><span>{copy.dropPhoto}</span><small>{copy.photoTypes}</small></button>
-            {photo && <div className="file-row"><span>{photoName}</span><button className="icon-button" aria-label={copy.removePhoto} onClick={() => { uploadId.current++; setUploading(false); setPhoto(null); setPhotoName(""); }}><X size={14}/></button></div>}
-            <div className="photo-frame-controls"><div className="field-label">{copy.photoFrame}<button className="icon-button" title={copy.resetPhotoFrame} aria-label={copy.resetPhotoFrame} disabled={!photoFrameChanged} onClick={resetPhotoFrame}><RotateCcw size={14}/></button></div><label className="range-label">{copy.sideMargin}<span>{settings.photoMargin}%</span><input type="range" min="0" max="12" step="1" value={settings.photoMargin} style={rangeProgress(settings.photoMargin, 0, 12)} onChange={e => updatePhotoFrame("photoMargin", +e.target.value)}/></label><label className="toggle-row compact frame-toggle"><span>{copy.includeTopMargin}</span><input type="checkbox" role="switch" checked={settings.photoTopMargin} onChange={e => update("photoTopMargin", e.target.checked)}/></label><label className="range-label">{copy.roundedCorners}<span>{settings.photoRadius}%</span><input type="range" min="0" max="10" step="1" value={settings.photoRadius} style={rangeProgress(settings.photoRadius, 0, 10)} onChange={e => updatePhotoFrame("photoRadius", +e.target.value)}/></label></div>
-            <div className="field-label">{copy.photoTreatment}</div><div className="segmented treatments">{([['original', copy.originalTreatment],['mono', copy.mono],['duotone', copy.duotone]] as const).map(([value,label]) => <button key={value} aria-pressed={settings.treatment === value} className={settings.treatment === value ? "active" : ""} onClick={() => update("treatment", value)}>{label}</button>)}</div>
-            {settings.treatment === "duotone" && <div className="tint-row">{tintColors.map(color => <button key={color} className={`tint ${settings.tint === color ? "active" : ""}`} style={{ background: color }} aria-label={copy.duotoneColor(color)} aria-pressed={settings.tint === color} onClick={() => update("tint", color)}/>)}<label className="custom-tint"><input aria-label={copy.customDuotone} type="color" value={settings.tint} onChange={e => update("tint", e.target.value)}/></label></div>}
-            {photo ? <div className="crop-controls"><label className="range-label">{copy.zoom}<span>{settings.zoom.toFixed(1)}×</span><input type="range" min="1" max="3" step="0.05" value={settings.zoom} style={rangeProgress(settings.zoom, 1, 3)} onChange={e => update("zoom", +e.target.value)}/></label><label className="range-label">{copy.horizontal}<span>{settings.offsetX}%</span><input type="range" min="0" max="100" value={settings.offsetX} style={rangeProgress(settings.offsetX, 0, 100)} onChange={e => update("offsetX", +e.target.value)}/></label><label className="range-label">{copy.vertical}<span>{settings.offsetY}%</span><input type="range" min="0" max="100" value={settings.offsetY} style={rangeProgress(settings.offsetY, 0, 100)} onChange={e => update("offsetY", +e.target.value)}/></label></div> : <p className="help-text">{copy.photoHelp}</p>}
+            <PhotoControls copy={copy} photo={photo} photoName={photoName} uploading={uploading} dragging={dragging} setDragging={setDragging} fileInput={fileInput} upload={upload} onRemove={() => { uploadId.current++; setUploading(false); setPhoto(null); setPhotoName(""); }} settings={settings} update={update} updatePhotoFrame={updatePhotoFrame} photoFrameChanged={photoFrameChanged} resetPhotoFrame={resetPhotoFrame}/>
           </div>}
 
-          <div className={`control-section ${essentials ? "last-section" : ""}`}><div className="section-heading"><h2>{copy.appleLogo}</h2></div><label className="toggle-row"><span>{copy.showLogo}</span><input type="checkbox" role="switch" checked={settings.showLogo} onChange={e => update("showLogo", e.target.checked)}/></label>
+          {!essentials && <div className="control-section"><div className="section-heading"><h2>{copy.background}</h2></div><div className="segmented">{([['gradients', copy.gradient],['colors', copy.color],['custom', copy.custom],['picture', copy.picture]] as const).map(([value,label]) => <button key={value} className={settings.backgroundType === value ? "active" : ""} aria-pressed={settings.backgroundType === value} onClick={() => update("backgroundType", value)}>{label}</button>)}</div>
+            {settings.backgroundType === "picture" ? <PhotoControls copy={copy} photo={photo} photoName={photoName} uploading={uploading} dragging={dragging} setDragging={setDragging} fileInput={fileInput} upload={upload} onRemove={() => { uploadId.current++; setUploading(false); setPhoto(null); setPhotoName(""); }} settings={settings} update={update} updatePhotoFrame={updatePhotoFrame} photoFrameChanged={photoFrameChanged} resetPhotoFrame={resetPhotoFrame}/> : settings.backgroundType === "custom" ? <label className="color-control custom-background"><input type="color" value={settings.customColor} onChange={e => update("customColor", e.target.value)}/><span>{copy.backgroundColor}</span><code>{settings.customColor}</code></label> : <div className="swatches">{Array.from({ length: settings.backgroundType === "gradients" ? 40 : 7 }, (_, i) => { const name = settings.backgroundType === "gradients" ? copy.gradientN(i + 1) : copy.colorN(i + 1); return <button key={`${settings.backgroundType}-${i}`} title={name} aria-label={name} aria-pressed={(settings.backgroundType === "gradients" ? settings.gradient : settings.color) === i} className={`swatch ${(settings.backgroundType === "gradients" ? settings.gradient : settings.color) === i ? "selected" : ""}`} onClick={() => update(settings.backgroundType === "gradients" ? "gradient" : "color", i)}><img src={`/assets/${settings.backgroundType}/${i}.png`} alt=""/>{(settings.backgroundType === "gradients" ? settings.gradient : settings.color) === i && <Check size={15}/>}</button>; })}</div>}
+          </div>}
+
+          <div className="control-section last-section"><div className="section-heading"><h2>{copy.appleLogo}</h2></div><label className="toggle-row"><span>{copy.showLogo}</span><input type="checkbox" role="switch" checked={settings.showLogo} onChange={e => update("showLogo", e.target.checked)}/></label>
             <div className={`corner-options ${!settings.showLogo ? "disabled" : ""}`}>{corners.map(corner => { const disabled = !settings.showLogo || (bottomLogoUnavailable && corner.startsWith("bottom")); return <button disabled={disabled} key={corner} className={settings.corner === corner ? "active" : ""} aria-pressed={settings.corner === corner} title={disabled && settings.showLogo ? copy.bottomCornerHint : undefined} onClick={() => setSettings(s => ({ ...s, corner, bandHeight: essentials && corner.startsWith("top") ? Math.max(s.bandHeight, 27) : s.bandHeight }))}><span className={`corner-icon ${corner}`}><i/></span>{copy.corners[corner]}</button>; })}</div>
             {bottomLogoUnavailable && <p className="help-text">{copy.bottomCornerHelp}</p>}
           </div>
-
-          {!essentials && <div className="control-section last-section"><div className="section-heading"><h2>{copy.background}</h2></div><div className="segmented">{([['gradients', copy.gradient],['colors', copy.color],['custom', copy.custom]] as const).map(([value,label]) => <button key={value} className={settings.backgroundType === value ? "active" : ""} aria-pressed={settings.backgroundType === value} onClick={() => update("backgroundType", value)}>{label}</button>)}</div>
-            {settings.backgroundType === "custom" ? <label className="color-control custom-background"><input type="color" value={settings.customColor} onChange={e => update("customColor", e.target.value)}/><span>{copy.backgroundColor}</span><code>{settings.customColor}</code></label> : <div className="swatches">{Array.from({ length: settings.backgroundType === "gradients" ? 40 : 7 }, (_, i) => { const name = settings.backgroundType === "gradients" ? copy.gradientN(i + 1) : copy.colorN(i + 1); return <button key={`${settings.backgroundType}-${i}`} title={name} aria-label={name} aria-pressed={(settings.backgroundType === "gradients" ? settings.gradient : settings.color) === i} className={`swatch ${(settings.backgroundType === "gradients" ? settings.gradient : settings.color) === i ? "selected" : ""}`} onClick={() => update(settings.backgroundType === "gradients" ? "gradient" : "color", i)}><img src={`/assets/${settings.backgroundType}/${i}.png`} alt=""/>{(settings.backgroundType === "gradients" ? settings.gradient : settings.color) === i && <Check size={15}/>}</button>; })}</div>}
-          </div>}
         </section>
       </div>
       {(error || status) && <div className={`toast ${error ? "error" : ""}`} role={error ? "alert" : "status"}>{notice(error || status)}<button aria-label={copy.dismiss} onClick={() => { setError(""); setStatus(""); }}><X size={15}/></button></div>}
@@ -238,3 +233,32 @@ export default function Home() {
 }
 
 type DownloadHandoff = { url: string; filename: string; size: number; x: number; y: number; scale: number; leaving: boolean };
+
+function PhotoControls({
+  copy, photo, photoName, uploading, dragging, setDragging, fileInput, upload, onRemove, settings, update, updatePhotoFrame, photoFrameChanged, resetPhotoFrame,
+}: {
+  copy: Dictionary["editor"];
+  photo: string | null;
+  photoName: string;
+  uploading: boolean;
+  dragging: boolean;
+  setDragging: (value: boolean) => void;
+  fileInput: RefObject<HTMLInputElement | null>;
+  upload: (file?: File) => Promise<void>;
+  onRemove: () => void;
+  settings: CoverSettings;
+  update: <K extends keyof CoverSettings>(key: K, value: CoverSettings[K]) => void;
+  updatePhotoFrame: (key: "photoMargin" | "photoRadius", value: number) => void;
+  photoFrameChanged: boolean;
+  resetPhotoFrame: () => void;
+}) {
+  return <>
+    <input ref={fileInput} type="file" accept="image/jpeg,image/png,image/webp" className="hidden-input" aria-label={copy.uploadPhoto} onChange={e => { void upload(e.target.files?.[0]); e.target.value = ""; }}/>
+    <button className={`upload-zone ${dragging ? "dragging" : ""}`} onClick={() => fileInput.current?.click()} onDragOver={e => { e.preventDefault(); setDragging(true); }} onDragLeave={() => setDragging(false)} onDrop={e => { e.preventDefault(); setDragging(false); void upload(e.dataTransfer.files[0]); }}><ImagePlus size={23}/><strong>{uploading ? copy.openingPhoto : photo ? copy.replacePhoto : copy.addPhoto}</strong><span>{copy.dropPhoto}</span><small>{copy.photoTypes}</small></button>
+    {photo && <div className="file-row"><span>{photoName}</span><button className="icon-button" aria-label={copy.removePhoto} onClick={onRemove}><X size={14}/></button></div>}
+    <div className="photo-frame-controls"><div className="field-label">{copy.photoFrame}<button className="icon-button" title={copy.resetPhotoFrame} aria-label={copy.resetPhotoFrame} disabled={!photoFrameChanged} onClick={resetPhotoFrame}><RotateCcw size={14}/></button></div><label className="range-label">{copy.sideMargin}<span>{settings.photoMargin}%</span><input type="range" min="0" max="12" step="1" value={settings.photoMargin} style={rangeProgress(settings.photoMargin, 0, 12)} onChange={e => updatePhotoFrame("photoMargin", +e.target.value)}/></label><label className="toggle-row compact frame-toggle"><span>{copy.includeTopMargin}</span><input type="checkbox" role="switch" checked={settings.photoTopMargin} onChange={e => update("photoTopMargin", e.target.checked)}/></label><label className="range-label">{copy.roundedCorners}<span>{settings.photoRadius}%</span><input type="range" min="0" max="10" step="1" value={settings.photoRadius} style={rangeProgress(settings.photoRadius, 0, 10)} onChange={e => updatePhotoFrame("photoRadius", +e.target.value)}/></label></div>
+    <div className="field-label">{copy.photoTreatment}</div><div className="segmented treatments">{([['original', copy.originalTreatment],['mono', copy.mono],['duotone', copy.duotone]] as const).map(([value,label]) => <button key={value} aria-pressed={settings.treatment === value} className={settings.treatment === value ? "active" : ""} onClick={() => update("treatment", value)}>{label}</button>)}</div>
+    {settings.treatment === "duotone" && <div className="tint-row">{tintColors.map(color => <button key={color} className={`tint ${settings.tint === color ? "active" : ""}`} style={{ background: color }} aria-label={copy.duotoneColor(color)} aria-pressed={settings.tint === color} onClick={() => update("tint", color)}/>)}<label className="custom-tint"><input aria-label={copy.customDuotone} type="color" value={settings.tint} onChange={e => update("tint", e.target.value)}/></label></div>}
+    {photo ? <div className="crop-controls"><label className="range-label">{copy.zoom}<span>{settings.zoom.toFixed(1)}×</span><input type="range" min="1" max="3" step="0.05" value={settings.zoom} style={rangeProgress(settings.zoom, 1, 3)} onChange={e => update("zoom", +e.target.value)}/></label><label className="range-label">{copy.horizontal}<span>{settings.offsetX}%</span><input type="range" min="0" max="100" value={settings.offsetX} style={rangeProgress(settings.offsetX, 0, 100)} onChange={e => update("offsetX", +e.target.value)}/></label><label className="range-label">{copy.vertical}<span>{settings.offsetY}%</span><input type="range" min="0" max="100" value={settings.offsetY} style={rangeProgress(settings.offsetY, 0, 100)} onChange={e => update("offsetY", +e.target.value)}/></label></div> : <p className="help-text">{copy.photoHelp}</p>}
+  </>;
+}

@@ -7,7 +7,7 @@ export type CoverSettings = {
   classicFontSize: number; classicSubtitleFontSize: number;
   classicTitleWeight: "normal" | "bold"; classicSubtitleWeight: "normal" | "bold";
   showLogo: boolean; corner: "top-left" | "top-right" | "bottom-left" | "bottom-right";
-  backgroundType: "gradients" | "colors" | "custom";
+  backgroundType: "gradients" | "colors" | "custom" | "picture";
   gradient: number; color: number; customColor: string;
   textColor: string; bandColor: string; bandHeight: number; essentialsFontSize: number;
   treatment: "original" | "mono" | "duotone"; tint: string;
@@ -63,10 +63,55 @@ function roundedRect(ctx: CanvasRenderingContext2D, x: number, y: number, width:
   ctx.closePath();
 }
 
+function drawPhoto(
+  ctx: CanvasRenderingContext2D,
+  uploaded: HTMLImageElement | null,
+  s: CoverSettings,
+  photoX: number,
+  photoY: number,
+  photoWidth: number,
+  photoHeight: number,
+  photoRadius: number,
+) {
+  if (uploaded) {
+    const photoCanvas = document.createElement("canvas");
+    photoCanvas.width = photoWidth;
+    photoCanvas.height = photoHeight;
+    const photoCtx = photoCanvas.getContext("2d")!;
+    const scale = Math.max(photoWidth / uploaded.width, photoHeight / uploaded.height) * s.zoom;
+    const w = uploaded.width * scale, h = uploaded.height * scale;
+    photoCtx.drawImage(uploaded, (photoWidth - w) * s.offsetX / 100, (photoHeight - h) * s.offsetY / 100, w, h);
+    if (s.treatment !== "original") {
+      const pixels = photoCtx.getImageData(0, 0, photoWidth, photoHeight);
+      const tint = s.treatment === "mono" ? [255, 255, 255] : [1, 3, 5].map(i => parseInt(s.tint.slice(i, i + 2), 16));
+      for (let i = 0; i < pixels.data.length; i += 4) {
+        const luma = (pixels.data[i] * .2126 + pixels.data[i+1] * .7152 + pixels.data[i+2] * .0722) / 255;
+        for (let c = 0; c < 3; c++) pixels.data[i+c] = Math.round(tint[c] * luma);
+      }
+      photoCtx.putImageData(pixels, 0, 0);
+    }
+    ctx.save();
+    roundedRect(ctx, photoX, photoY, photoWidth, photoHeight, photoRadius);
+    ctx.clip();
+    ctx.drawImage(photoCanvas, photoX, photoY);
+    ctx.restore();
+  } else {
+    const placeholder = ctx.createLinearGradient(photoX, photoY, photoX + photoWidth, photoY + photoHeight);
+    placeholder.addColorStop(0, "#777777");
+    placeholder.addColorStop(1, "#262629");
+    ctx.save();
+    roundedRect(ctx, photoX, photoY, photoWidth, photoHeight, photoRadius);
+    ctx.clip();
+    ctx.fillStyle = placeholder;
+    ctx.fillRect(photoX, photoY, photoWidth, photoHeight);
+    ctx.restore();
+  }
+}
+
 // Preview and export share this renderer, including crop and pixel-level color treatment.
 export async function renderCover(canvas: HTMLCanvasElement, s: CoverSettings, photo: string | null) {
   const size = 1200;
-  const background = s.mode === "essentials" || s.backgroundType === "custom" ? null : await loadImage(`/assets/${s.backgroundType}/${s.backgroundType === "gradients" ? s.gradient : s.color}.png`);
+  const background = s.mode === "essentials" || s.backgroundType === "custom" || s.backgroundType === "picture" ? null : await loadImage(`/assets/${s.backgroundType}/${s.backgroundType === "gradients" ? s.gradient : s.color}.png`);
   const uploaded = photo ? await loadImage(photo) : null;
   await Promise.all([document.fonts.load('600 100px CoverFont'), document.fonts.load('300 100px CoverFont'), document.fonts.load('400 100px CoverFont')]);
   canvas.width = canvas.height = size;
@@ -85,44 +130,21 @@ export async function renderCover(canvas: HTMLCanvasElement, s: CoverSettings, p
     const photoRadius = Math.round(size * s.photoRadius / 100);
     ctx.fillStyle = s.bandColor;
     ctx.fillRect(0, 0, size, size);
-    if (uploaded) {
-      const photoCanvas = document.createElement("canvas");
-      photoCanvas.width = photoWidth;
-      photoCanvas.height = photoHeight;
-      const photoCtx = photoCanvas.getContext("2d")!;
-      const scale = Math.max(photoWidth / uploaded.width, photoHeight / uploaded.height) * s.zoom;
-      const w = uploaded.width * scale, h = uploaded.height * scale;
-      photoCtx.drawImage(uploaded, (photoWidth - w) * s.offsetX / 100, (photoHeight - h) * s.offsetY / 100, w, h);
-      if (s.treatment !== "original") {
-        const pixels = photoCtx.getImageData(0, 0, photoWidth, photoHeight);
-        const tint = s.treatment === "mono" ? [255, 255, 255] : [1, 3, 5].map(i => parseInt(s.tint.slice(i, i + 2), 16));
-        for (let i = 0; i < pixels.data.length; i += 4) {
-          const luma = (pixels.data[i] * .2126 + pixels.data[i+1] * .7152 + pixels.data[i+2] * .0722) / 255;
-          for (let c = 0; c < 3; c++) pixels.data[i+c] = Math.round(tint[c] * luma);
-        }
-        photoCtx.putImageData(pixels, 0, 0);
-      }
-      ctx.save();
-      roundedRect(ctx, photoX, photoY, photoWidth, photoHeight, photoRadius);
-      ctx.clip();
-      ctx.drawImage(photoCanvas, photoX, photoY);
-      ctx.restore();
-    } else {
-      const placeholder = ctx.createLinearGradient(photoX, photoY, photoX + photoWidth, photoY + photoHeight);
-      placeholder.addColorStop(0, "#777777");
-      placeholder.addColorStop(1, "#262629");
-      ctx.save();
-      roundedRect(ctx, photoX, photoY, photoWidth, photoHeight, photoRadius);
-      ctx.clip();
-      ctx.fillStyle = placeholder;
-      ctx.fillRect(photoX, photoY, photoWidth, photoHeight);
-      ctx.restore();
-    }
+    drawPhoto(ctx, uploaded, s, photoX, photoY, photoWidth, photoHeight, photoRadius);
     ctx.fillStyle = s.bandColor;
     ctx.fillRect(0, 0, size, band);
     ctx.fillStyle = s.textColor;
     text(ctx, s.essentialsTitle, 48, Math.max(28, band - s.essentialsFontSize - 20), s.essentialsFontSize, 600, 1104);
   } else {
+    if (s.backgroundType === "picture") {
+      const inset = Math.round(size * s.photoMargin / 100);
+      const photoX = inset;
+      const photoY = s.photoTopMargin ? inset : 0;
+      const photoWidth = size - inset * 2;
+      const photoHeight = size - photoY - inset;
+      const photoRadius = Math.round(size * s.photoRadius / 100);
+      drawPhoto(ctx, uploaded, s, photoX, photoY, photoWidth, photoHeight, photoRadius);
+    }
     ctx.fillStyle = s.textColor;
     ctx.textAlign = s.classicAlign;
     const classicX = s.classicAlign === "center" ? size / 2 : 100;
@@ -136,7 +158,8 @@ export async function renderCover(canvas: HTMLCanvasElement, s: CoverSettings, p
     ctx.globalAlpha = 1;
   }
   if (s.showLogo) {
-    const logoCorner = s.mode === "essentials" && (s.photoMargin > 0 || s.photoRadius > 0) && s.corner.startsWith("bottom")
+    const framedPhoto = (s.mode === "essentials" || s.backgroundType === "picture") && (s.photoMargin > 0 || s.photoRadius > 0);
+    const logoCorner = framedPhoto && s.corner.startsWith("bottom")
       ? (s.corner === "bottom-left" ? "top-left" : "top-right")
       : s.corner;
     const w = s.mode === "essentials" ? 260 : 240;
